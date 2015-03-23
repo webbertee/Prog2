@@ -33,10 +33,14 @@ public class Share {
 	 * 
 	 * @param share
 	 */
+	@Override
 	public boolean equals(Object share) {
+		if(this == share) 
+			return true;
+		
 		if (share instanceof Share) {
 			Share other = (Share) share;
-			if (other.name == name && other.value == value) {
+			if (other.name.equals(name) && other.value == value) {
 				return true;
 			}
 		}

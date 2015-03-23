@@ -62,7 +62,7 @@ public class AssetTest {
 		} else {
 			System.out.println("Konnte konnte nicht "  + count + " " + share.getName() + " Aktien verkaufen");
 		}
-		//printValueDebug();
+		printValueDebug();
 	}
 	
 	private static void printValueDebug() {

@@ -2,8 +2,8 @@ public class ShareDepositAccount extends Asset{
 
 	private int shareItemCount;
 	private ShareItem[] shareItems;
-	private final int DEFAUT_LENGTH = 10;
-	private final int LENGTH_CHANGE = 10;
+//	private final int DEFAUT_LENGTH = 10;
+//	private final int LENGTH_CHANGE = 10;
 	
 	public int getLengthDebug() {
 		return shareItems.length;
@@ -13,9 +13,9 @@ public class ShareDepositAccount extends Asset{
 		super(name);
 		shareItemCount = 0;
 		
-		shareItems = new ShareItem[DEFAUT_LENGTH];
+		//shareItems = new ShareItem[DEFAUT_LENGTH];
 		//Alternativ
-		//shareItems = new ShareItem[0];
+		shareItems = new ShareItem[0];
 	}
 
 	public String toString() {
@@ -53,7 +53,7 @@ public class ShareDepositAccount extends Asset{
 		
 		checkAddSize();
 		shareItems[shareItemCount] = new ShareItem(share);
-		// Frage: Wo soll dieEingabe überprüft werden?
+		// Frage: Wo soll die Eingabe überprüft werden?
 		if (shareItems[shareItemCount].add(count)) {
 			shareItemCount++;
 			return true;
@@ -73,31 +73,31 @@ public class ShareDepositAccount extends Asset{
 	}
 
 	private void checkAddSize() {
-		if (shareItems.length <= shareItemCount) {
-			ShareItem[] newShareItems = new ShareItem[shareItems.length
-					+ LENGTH_CHANGE];
-			System.arraycopy(shareItems, 0, newShareItems, 0, shareItemCount);
-			shareItems = newShareItems;
-		}
+//		if (shareItems.length <= shareItemCount) {
+//			ShareItem[] newShareItems = new ShareItem[shareItems.length
+//					+ LENGTH_CHANGE];
+//			System.arraycopy(shareItems, 0, newShareItems, 0, shareItemCount);
+//			shareItems = newShareItems;
+//		}
 		
 		//Alternativ
-//		ShareItem[] newShareItems = new ShareItem[shareItems.length + 1];
-//		System.arraycopy(shareItems, 0, newShareItems, 0, shareItemCount);
-//		shareItems = newShareItems;
+		ShareItem[] newShareItems = new ShareItem[shareItems.length + 1];
+		System.arraycopy(shareItems, 0, newShareItems, 0, shareItemCount);
+		shareItems = newShareItems;
 	}
 	
 	private void checkRemoveSize() {
-		if(shareItems.length > shareItemCount + LENGTH_CHANGE) {
-			ShareItem[] newShareItems = new ShareItem[shareItemCount 
-			                                          + LENGTH_CHANGE / 2]; //shareItemCount + x?
-			System.arraycopy(shareItems, 0, newShareItems, 0, shareItemCount);
-			shareItems = newShareItems;
-		}
+//		if(shareItems.length > shareItemCount + LENGTH_CHANGE) {
+//			ShareItem[] newShareItems = new ShareItem[shareItemCount 
+//			                                          + LENGTH_CHANGE / 2]; //shareItemCount + x?
+//			System.arraycopy(shareItems, 0, newShareItems, 0, shareItemCount);
+//			shareItems = newShareItems;
+//		}
 		
 		//Alternativ
-//		ShareItem[] newShareItems = new ShareItem[shareItems.length - 1];
-//		System.arraycopy(shareItems, 0, newShareItems, 0, shareItemCount);
-//		shareItems = newShareItems;
+		ShareItem[] newShareItems = new ShareItem[shareItems.length - 1];
+		System.arraycopy(shareItems, 0, newShareItems, 0, shareItemCount);
+		shareItems = newShareItems;
 	}
 
 	/**

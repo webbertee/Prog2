@@ -29,7 +29,6 @@ public class ShareDepositAccount extends Asset{
 		}
 		return value;
 	}
-	//nötig? copy-Paste sparen??
 	public long getBuyValue() {
 		long value = 0;
 		for (int i = 0; i < shareItemCount; i++) {

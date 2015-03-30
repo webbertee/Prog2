@@ -1,3 +1,4 @@
+package Assets;
 public class AssetTest {
 	private static CashAccount cashAcc;
 	private static ShareDepositAccount shareAcc;

@@ -1,3 +1,4 @@
+package Assets;
 public class ShareDepositAccount extends Asset{
 
 	private int shareItemCount;

@@ -1,3 +1,4 @@
+package Assets;
 public class Share {
 
 	private long value;

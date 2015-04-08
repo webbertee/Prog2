@@ -74,17 +74,12 @@ public class AssetTest {
 	private static boolean buy(Share share, int count) { //Grund zurückgeben?
 		if ((share.getValue() * count) > cashAcc.getValue())
 			return false;
-		if (shareAcc.addShare(share, count)) {
-			cashAcc.remove(share.getValue() * count);
-			return true;
-		}
-		return false;
+		
+		shareAcc.addShare(share, count);
+		return true;
 	}
-	private static boolean sell(Share share, int count) {
-		if(shareAcc.removeShare(share, count)) {
-			cashAcc.add(share.getValue() * count);
-			return true;
-		}
-		return false;
+	private static void sell(Share share, int count) {
+		shareAcc.removeShare(share, count);
+		cashAcc.add(share.getValue() * count);
 	}
 }

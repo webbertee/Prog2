@@ -43,23 +43,20 @@ public class ShareDepositAccount extends Asset{
 	 * @param share
 	 * @param count
 	 */
-	public boolean addShare(Share share, int count) {
+	public void addShare(Share share, int count) {
 		// suche Entsprechendes Paket im Array
 		int shareItemIndex = findShareItem(share);
-		if (shareItemIndex >= 0)
-			return shareItems[shareItemIndex].add(count);
+		if (shareItemIndex >= 0) {
+			shareItems[shareItemIndex].add(count);
+			return;
+		}
 
 		// Kein entsprechendes Paket vorhanden.
 		
 		checkAddSize();
 		shareItems[shareItemCount] = new ShareItem(share);
-		// Frage: Wo soll die Eingabe überprüft werden?
-		if (shareItems[shareItemCount].add(count)) {
-			shareItemCount++;
-			return true;
-		}
-		shareItems[shareItemCount] = null;
-		return false;
+		shareItemCount++;
+		
 	}
 
 	private int findShareItem(Share share) {
@@ -105,12 +102,14 @@ public class ShareDepositAccount extends Asset{
 	 * @param share
 	 * @param count
 	 */
-	public boolean removeShare(Share share, int count) {
+	public void removeShare(Share share, int count) {
 		int shareItemIndex = findShareItem(share);
 		// abbrechen, wenn das shareItem nicht vorhanden ist
 		// oder das hinzufügen scheitert
-		if (shareItemIndex < 0 || !shareItems[shareItemIndex].remove(count))
-			return false;
+		if (shareItemIndex < 0)
+			throw new IllegalStateException("No " + share.getName() + " shares in " + this.toString());
+		
+		shareItems[shareItemIndex].remove(count);
 		
 		//Wenn das Depot leer ist, entferne es aus dem Speicher
 		if (shareItems[shareItemIndex].getCount() == 0) {
@@ -119,6 +118,5 @@ public class ShareDepositAccount extends Asset{
 			shareItemCount--;
 			checkRemoveSize();
 		}
-		return true;
 	}
 }

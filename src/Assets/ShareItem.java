@@ -35,26 +35,27 @@ public class ShareItem extends Asset {
 	 * 
 	 * @param count
 	 */
-	public boolean remove(int count) { //renamed
-		if(count > 0 && count <= this.count) {
-			this.count -= count;
-			buyValue -= count * share.getValue();
-			return true;
-		}
-		return false;
+	public void remove(int count) { //renamed
+		if(count < 1)
+			throw new IllegalArgumentException("count must be > 0");
+		
+		if(count > this.count)
+			throw new  IllegalStateException("Can not sell "+count+" shares, only "+this.count+"left"); 
+		
+		this.count -= count;
+		buyValue -= count * share.getValue();
 	}
 
 	/**
 	 * 
 	 * @param count
 	 */
-	public boolean add(int count) { //renamed
-		if(count > 0) {
-			this.count += count;
-			buyValue += count * share.getValue();
-			return true;
-		}
-		return false;
+	public void add(int count) { //renamed
+		if(count < 1)
+			throw new IllegalArgumentException("Count must be > 0");
+		
+		this.count += count;
+		buyValue += count * share.getValue();
 	}
 
 }

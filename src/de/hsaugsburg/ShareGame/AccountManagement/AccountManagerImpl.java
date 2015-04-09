@@ -1,6 +1,7 @@
 package de.hsaugsburg.ShareGame.AccountManagement;
 
 import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.NotEnoughMoneyException;
+import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.PlayerAlreadyExistsException;
 import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.UnknownPlayerException;
 import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.UnknownShareException;
 import de.hsaugsburg.ShareGame.Assets.Share;
@@ -22,6 +23,9 @@ public class AccountManagerImpl implements AccountManager {
 	
 	@Override
 	public void addPlayer(String name, long cash) {
+		if(getPlayerIndex(name) < 0)
+			throw new PlayerAlreadyExistsException();
+		
 		players[playerCount] = new Player(name, cash);
 		playerCount++;
 	}

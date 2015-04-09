@@ -1,4 +1,4 @@
-package Assets;
+package de.hsaugsburg.ShareGame.Assets;
 public class ShareDepositAccount extends Asset{
 
 	private int shareItemCount;
@@ -22,7 +22,15 @@ public class ShareDepositAccount extends Asset{
 	public String toString() {
 		return "ShareDepositAccount with " + shareItemCount + "ShareItems";
 	}
-
+	
+	public int getShareCount(Share share) {
+		int saindex = findShareItem(share);
+		if(saindex < 0)
+			return 0;
+		else
+			return shareItems[saindex].getCount();
+	}
+	
 	public long getValue() {
 		long value = 0;
 		for (int i = 0; i < shareItemCount; i++) {

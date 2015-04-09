@@ -1,4 +1,4 @@
-package Assets;
+package de.hsaugsburg.ShareGame.Assets;
 public class AssetTest {
 	private static CashAccount cashAcc;
 	private static ShareDepositAccount shareAcc;
@@ -58,12 +58,10 @@ public class AssetTest {
 		//printValueDebug();
 	}
 	private static void sellDebug(Share share, int count) {
-		if(sell(share, count)) {
+		if(sell(share, count))
 			System.out.println("Erflogreich " + count + " " + share.getName() + " Aktien verkauft");
-		} else {
-			System.out.println("Konnte konnte nicht "  + count + " " + share.getName() + " Aktien verkaufen");
-		}
-		printValueDebug();
+		else
+			System.out.println("Nicht genug Aktien zum Verkaufen");
 	}
 	
 	private static void printValueDebug() {
@@ -78,8 +76,11 @@ public class AssetTest {
 		shareAcc.addShare(share, count);
 		return true;
 	}
-	private static void sell(Share share, int count) {
+	private static boolean sell(Share share, int count) {
+		if(count > shareAcc.getShareCount(share))
+			return false;
 		shareAcc.removeShare(share, count);
 		cashAcc.add(share.getValue() * count);
+		return true;
 	}
 }

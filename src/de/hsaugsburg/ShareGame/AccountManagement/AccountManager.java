@@ -1,4 +1,6 @@
-package AccountManagement;
+package de.hsaugsburg.ShareGame.AccountManagement;
+
+import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.NotEnoughMoneyException;
 
 public interface AccountManager {
 
@@ -6,7 +8,7 @@ public interface AccountManager {
 	 * 
 	 * @param name
 	 */
-	public void addPlayer(String name);
+	public void addPlayer(String name, long cash);
 	/**
 	 * 
 	 * @param playerName
@@ -21,7 +23,7 @@ public interface AccountManager {
 	 * @param shareName
 	 * @param count
 	 */
-	public void sellShare(String playerName, String shareName, int count);
+	public void sellShare(String playerName, String shareName, int count) throws NotEnoughMoneyException;
 
 	/**
 	 * 

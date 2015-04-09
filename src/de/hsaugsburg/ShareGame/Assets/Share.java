@@ -1,4 +1,4 @@
-package Assets;
+package de.hsaugsburg.ShareGame.Assets;
 public class Share {
 
 	private long value;

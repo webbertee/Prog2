@@ -1,4 +1,7 @@
-package Assets;
+package de.hsaugsburg.ShareGame.Assets;
+
+import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.NotEnoughMoneyException;
+
 public class CashAccount extends Asset {
 
 	private long value;
@@ -8,12 +11,12 @@ public class CashAccount extends Asset {
 		value += amount;
 	}
 	
-	public boolean remove(long amount) {
+	public void remove(long amount) throws NotEnoughMoneyException {
 		if(value >= amount) {
 			value -= amount;
-			return true;
+			return;
 		}else {
-			return false;
+			throw new NotEnoughMoneyException();
 		}
 	}
 	public long getValue() {

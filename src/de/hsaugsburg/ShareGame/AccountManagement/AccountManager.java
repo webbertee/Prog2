@@ -14,8 +14,9 @@ public interface AccountManager {
 	 * @param playerName
 	 * @param shareName
 	 * @param count
+	 * @throws NotEnoughMoneyException 
 	 */
-	public void buyShare(String playerName, String shareName, int count);
+	public void buyShare(String playerName, String shareName, int count) throws NotEnoughMoneyException;
 
 	/**
 	 * 
@@ -23,7 +24,7 @@ public interface AccountManager {
 	 * @param shareName
 	 * @param count
 	 */
-	public void sellShare(String playerName, String shareName, int count) throws NotEnoughMoneyException;
+	public void sellShare(String playerName, String shareName, int count);
 
 	/**
 	 * 

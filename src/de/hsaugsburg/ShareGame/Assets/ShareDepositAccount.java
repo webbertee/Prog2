@@ -62,7 +62,7 @@ public class ShareDepositAccount extends Asset{
 		// Kein entsprechendes Paket vorhanden.
 		
 		checkAddSize();
-		shareItems[shareItemCount] = new ShareItem(share);
+		shareItems[shareItemCount] = new ShareItem(share, super.getName() + "_" + share.getName());
 		shareItemCount++;
 		
 	}

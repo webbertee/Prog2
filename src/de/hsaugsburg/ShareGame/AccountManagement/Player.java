@@ -16,8 +16,8 @@ public class Player {
 	 */
 	public Player(String name, long cash) {
 		this.name = name;
-		cashAccount = new CashAccount(name, cash);
-		shareDepositAccount = new ShareDepositAccount(name);
+		cashAccount = new CashAccount(name + "_cash", cash);
+		shareDepositAccount = new ShareDepositAccount(name + "_shares");
 	}
 	
 	public String getName() {

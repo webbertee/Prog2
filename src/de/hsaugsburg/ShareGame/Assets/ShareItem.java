@@ -26,8 +26,10 @@ public class ShareItem extends Asset {
 	 * @param share
 	 * @param count
 	 */
-	public ShareItem(Share share) {
-		super(share.getName());
+
+	
+	public ShareItem(Share share, String name) {
+		super(name);
 		this.share = share;
 	}
 

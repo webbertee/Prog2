@@ -1,8 +1,8 @@
 package de.hsaugsburg.ShareGame.AccountManagement;
 
-import javax.net.ssl.SSLContext;
-
 import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.NotEnoughMoneyException;
+import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.UnknownPlayerException;
+import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.UnknownShareException;
 import de.hsaugsburg.ShareGame.Assets.Share;
 
 public class AccountManagerImpl implements AccountManager {
@@ -27,46 +27,44 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	public void buyShare(String playerName, String shareName, int count) {
-		Player
+	public void buyShare(String playerName, String shareName, int count) throws NotEnoughMoneyException {
+		getPlayer(playerName).buyShare(getShare(shareName), count);
 	}
 
 	@Override
-	public void sellShare(String playerName, String shareName, int count) throws NotEnoughMoneyException {
-
+	public void sellShare(String playerName, String shareName, int count) {
+		getPlayer(playerName).sellShare(getShare(shareName), count);
 	}
 
 	@Override
 	public long getPlayerSharesValue(String name) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getPlayer(name).getShareValue();
 	}
 
 	@Override
 	public long getPlayerCashValue(String name) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getPlayer(name).getCashValue();
 	}
 
 	@Override
 	public long getPlayerAssetValue(String name) {
-		// TODO Auto-generated method stub
-		return 0;
+		Player p = getPlayer(name);
+		return p.getCashValue() + p.getShareValue();
 	}
 
 	@Override
 	public long getShareValue(String name) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getShare(name).getValue();
 	}
 
 	@Override
 	public String getAllShares() {
 		StringBuilder out = new StringBuilder();
-		for(Share s : shares) {
-			out.append(s.getName());
+		for(int i = 0; i < shares.length - 1; i++) {
+			out.append(shares[i].getName());
 			out.append(", ");
 		}
+		out.append(shares[shares.length - 1].getName());
 		return out.toString();
 	}
 	
@@ -77,5 +75,26 @@ public class AccountManagerImpl implements AccountManager {
 		}
 		return -1;
 	}
-
+	
+	private Player getPlayer(String name) {
+		int playerI = getPlayerIndex(name);
+		if(playerI < 0)
+			throw new UnknownPlayerException(name);
+		return players[playerI];
+	}
+	
+	private int getShareIndex(String share) {
+		for(int i = 0; i < shares.length; i++) {
+			if(shares[i].getName().equals(share))
+				return i;
+		}
+		return -1;
+	}
+	
+	private Share getShare(String name) {
+		int shareI = getShareIndex(name);
+		if(shareI < 0)
+			throw new UnknownShareException(name);
+		return shares[shareI];	
+	}
 }

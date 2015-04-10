@@ -23,7 +23,7 @@ public class AccountManagerImpl implements AccountManager {
 	
 	@Override
 	public void addPlayer(String name, long cash) {
-		if(getPlayerIndex(name) < 0)
+		if(getPlayerIndex(name) >= 0)
 			throw new PlayerAlreadyExistsException();
 		
 		players[playerCount] = new Player(name, cash);
@@ -64,11 +64,10 @@ public class AccountManagerImpl implements AccountManager {
 	@Override
 	public String getAllShares() {
 		StringBuilder out = new StringBuilder();
-		for(int i = 0; i < shares.length - 1; i++) {
-			out.append(shares[i].getName());
+		for(int i = 0; i < shares.length; i++) {
+			out.append(shares[i].getName() + " " + shares[i].getValue());
 			out.append(", ");
 		}
-		out.append(shares[shares.length - 1].getName());
 		return out.toString();
 	}
 	

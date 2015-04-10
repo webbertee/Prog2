@@ -20,7 +20,7 @@ public class ShareDepositAccount extends Asset{
 	}
 
 	public String toString() {
-		return "ShareDepositAccount with " + shareItemCount + "ShareItems";
+		return "ShareDepositAccount with " + shareItemCount + " ShareItems";
 	}
 	
 	public int getShareCount(Share share) {
@@ -63,14 +63,14 @@ public class ShareDepositAccount extends Asset{
 		
 		checkAddSize();
 		shareItems[shareItemCount] = new ShareItem(share, super.getName() + "_" + share.getName());
+		shareItems[shareItemCount].add(count);
 		shareItemCount++;
 		
 	}
 
 	private int findShareItem(Share share) {
 		for (int i = 0; i < shareItemCount; i++) {
-			if (shareItems[i].getName().equals(share.getName())) { // hässlich.
-																	// schöner?
+			if (shareItems[i].getName().endsWith("_" + share.getName())) { 
 				return i;
 			}
 		}

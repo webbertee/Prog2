@@ -5,9 +5,11 @@ import java.util.Timer;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class Viewer extends JFrame {
     private static final int TICK_PERIOD = 1000;
     private Timer ticker;

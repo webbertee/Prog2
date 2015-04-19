@@ -1,9 +1,10 @@
 package de.hsaugsburg.sharegame.accounts;
 
-import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
-import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
+//import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
+//import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 
 public class AccountManagementTest {
+	/*
 	public static void main(String[] args) {
 		AccountManager am = new AccountManagerImpl();
 		am.addPlayer("Alice", 100000);
@@ -46,4 +47,5 @@ public class AccountManagementTest {
 //			e.printStackTrace();
 //		}
 	}
+		*/
 }

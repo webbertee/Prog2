@@ -1,4 +1,4 @@
-package de.hsaugsburg.sharegame.accounts.exceptions;
+package de.hsaugsburg.sharegame.shares.exceptions;
 
 public class UnknownShareException extends RuntimeException {
 

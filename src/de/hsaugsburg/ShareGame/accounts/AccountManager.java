@@ -48,8 +48,6 @@ public interface AccountManager {
 	 * 
 	 * @param name
 	 */
-	public long getShareValue(String name);
-	
-	public String getAllShares() ;
+
 
 }

@@ -41,6 +41,7 @@ public class Viewer extends JFrame {
 
 		private StringBuffer buffer = new StringBuffer();
 		private DecimalFormat df = new DecimalFormat("#.00");
+		
 		private String createText() {
 			buffer.setLength(0);
 			buffer.append("<html><body>The current share prices<br><br>");

@@ -1,4 +1,4 @@
-package de.hsaugsburg.ShareGame.AccountManagement.Exceptions;
+package de.hsaugsburg.sharegame.accounts.exceptions;
 
 public class PlayerAlreadyExistsException extends RuntimeException {
 

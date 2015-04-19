@@ -1,9 +1,9 @@
-package de.hsaugsburg.ShareGame.AccountManagement;
+package de.hsaugsburg.sharegame.accounts;
 
-import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.NotEnoughMoneyException;
-import de.hsaugsburg.ShareGame.Assets.CashAccount;
-import de.hsaugsburg.ShareGame.Assets.Share;
-import de.hsaugsburg.ShareGame.Assets.ShareDepositAccount;
+import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
+import de.hsaugsburg.sharegame.assets.CashAccount;
+import de.hsaugsburg.sharegame.assets.Share;
+import de.hsaugsburg.sharegame.assets.ShareDepositAccount;
 
 public class Player {
 	private CashAccount cashAccount;

@@ -1,6 +1,6 @@
-package de.hsaugsburg.ShareGame.AccountManagement;
+package de.hsaugsburg.sharegame.accounts;
 
-import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.NotEnoughMoneyException;
+import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 
 public interface AccountManager {
 

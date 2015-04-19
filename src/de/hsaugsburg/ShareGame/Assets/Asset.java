@@ -1,4 +1,4 @@
-package de.hsaugsburg.ShareGame.Assets;
+package de.hsaugsburg.sharegame.assets;
 public abstract class Asset {
 
 	private String name;

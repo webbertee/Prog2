@@ -1,6 +1,6 @@
-package de.hsaugsburg.ShareGame.Assets;
+package de.hsaugsburg.sharegame.assets;
 
-import de.hsaugsburg.ShareGame.AccountManagement.Exceptions.NotEnoughMoneyException;
+import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 
 public class CashAccount extends Asset {
 

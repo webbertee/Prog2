@@ -1,4 +1,4 @@
-package de.hsaugsburg.ShareGame.Assets;
+package de.hsaugsburg.sharegame.assets;
 public class AssetTest {
 	private static CashAccount cashAcc;
 	private static ShareDepositAccount shareAcc;

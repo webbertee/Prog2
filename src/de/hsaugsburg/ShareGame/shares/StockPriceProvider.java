@@ -6,9 +6,12 @@ import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.shares.exceptions.UnknownShareException;
 import de.hsaugsburg.sharegame.timer.SingleTimer;
 
+/**
+ * Important: Classes who extend this Class must call startUpdate in the constructor if
+ * the rates should be updated periodically.
+ */
 public abstract class StockPriceProvider implements StockPriceInfo {
 	private final Share[] shares;
-	
 	
 	
 	public StockPriceProvider(Share[] shares) {
@@ -30,21 +33,29 @@ public abstract class StockPriceProvider implements StockPriceInfo {
 		return out.toString();
 	}
 	
-	public void startUpdate() {
+	protected void startUpdate(long delay, long period) {
 		SingleTimer.getTimer().scheduleAtFixedRate(new TimerTask() {
             public void run() {
                updateShareRates();
             }
-        }, 2000, 1000);
+        }, delay, period);
 	}
 	
-	private void updateShareRates() {
+	protected final void updateShareRates() {
 		for(Share s : shares)
 			updateShareRate(s);
 	}
 	
 	protected abstract void updateShareRate(Share share);
 	
+	@Override
+	public String[] getShareNames() {
+		String[] out = new String[shares.length];
+		for(int i = 0; i < out.length; i++)
+			out[i] = shares[i].getName();
+		return out;
+			
+	}
 	private int getShareIndex(String share) {
 		for(int i = 0; i < shares.length; i++) {
 			if(shares[i].getName().equals(share))

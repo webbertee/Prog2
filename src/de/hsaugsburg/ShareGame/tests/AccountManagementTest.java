@@ -1,4 +1,4 @@
-package de.hsaugsburg.sharegame.accounts;
+package de.hsaugsburg.sharegame.tests;
 
 //import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 //import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;

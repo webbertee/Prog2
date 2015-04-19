@@ -10,7 +10,7 @@ public class Aufg3test {
 		Share[] shares = {new Share("Audi", 10000), new Share("SpaceX", 10500), 
 				new Share("Siemens", 20000), new Share("SAP", 12000)};
 		
-		StockPriceProvider provider = new RandomStockPriceProvider(shares, 1000, 10, 10f);
+		StockPriceProvider provider = new RandomStockPriceProvider(shares, 1000, 1000, 1000);
 		new Viewer(provider).start();
 	}
 }

@@ -7,16 +7,16 @@ import de.hsaugsburg.sharegame.assets.Share;
 
 
 public class RandomStockPriceProvider extends StockPriceProvider {
-	private float factor;
+	private long deviaton;
 	private Random rndGen;
 	
 	
 	/**
-	 * @param deviation standard deviation of stockprice change in percent
+	 * @param deviation standard deviation of change in stockprice in cent
 	 */
-	public RandomStockPriceProvider(Share[] shares, long delay, long period, float deviation) {
+	public RandomStockPriceProvider(Share[] shares, long delay, long period, long deviation) {
 		super(shares);
-		factor = deviation / 100;
+		this.deviaton = deviation;
 		rndGen = new Random();
 		super.startUpdate(delay, period);
 	}
@@ -24,7 +24,8 @@ public class RandomStockPriceProvider extends StockPriceProvider {
 
 	@Override
 	protected void updateShareRate(Share share) {
-		double rnd = share.getValue() * (1 + rndGen.nextGaussian()  * factor);
-		share.setValue(Math.round(rnd));
+		long rnd = share.getValue()  + Math.round(rndGen.nextGaussian()*deviaton);
+		if(rnd > 0)
+			share.setValue(rnd);
 	}
 }

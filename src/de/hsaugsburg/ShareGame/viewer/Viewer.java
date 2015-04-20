@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import de.hsaugsburg.sharegame.shares.StockPriceInfo;
+import de.hsaugsburg.sharegame.timer.SingleTimer;
 
 @SuppressWarnings("serial")
 public class Viewer extends JFrame {
@@ -28,7 +29,7 @@ public class Viewer extends JFrame {
 	}
 
 	public void start() {
-		ticker = new Timer(true); // as daemon
+		ticker = SingleTimer.getTimer(); // as daemon
 		ticker.scheduleAtFixedRate(new TickerTask(), 1000, TICK_PERIOD);
 	}
 

@@ -49,8 +49,11 @@ public class Viewer extends JFrame {
 			buffer.append("<table><tr><th>Stock</th><th>Price in €</th></tr>");
 			String[] shareNames = priceInfo.getShareNames();
 			for (String s : shareNames) {
-				buffer.append("<tr><td>" + s + "</td>");
-				buffer.append("<td>" + df.format(priceInfo.getShareValue(s)/100.0) + "</td></tr>");
+				buffer.append("<tr><td>");
+				buffer.append(s);
+				buffer.append("</td><td>");
+				buffer.append(df.format(priceInfo.getShareValue(s)/100.0));
+				buffer.append("</td></tr>");
 			}
 			buffer.append("</table>");
 			// --------------------

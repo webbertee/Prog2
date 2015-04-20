@@ -9,6 +9,8 @@ public interface AccountManager {
 	 * @param name
 	 */
 	public void addPlayer(String name, long cash);
+	
+	
 	/**
 	 * 
 	 * @param playerName
@@ -44,10 +46,6 @@ public interface AccountManager {
 	 */
 	public long getPlayerAssetValue(String name);
 
-	/**
-	 * 
-	 * @param name
-	 */
 
 
 }

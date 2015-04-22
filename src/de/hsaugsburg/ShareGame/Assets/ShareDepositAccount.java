@@ -127,4 +127,29 @@ public class ShareDepositAccount extends Asset{
 			checkRemoveSize();
 		}
 	}
+
+	public int getSharesCount(Share share) {
+		int i = findShareItem(share);
+		if(i < 0)
+			return 0;
+		
+		return shareItems[i].getCount();
+		
+	}
+
+	public long getSharesValue(Share share) {
+		int i = findShareItem(share);
+		if(i < 0)
+			return 0;
+		
+		return shareItems[i].getValue();
+	}
+
+	public long getSharesBuyValue(Share share) {
+		int i = findShareItem(share);
+		if(i < 0)
+			return 0;
+		
+		return shareItems[i].getBuyValue();
+	}
 }

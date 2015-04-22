@@ -49,8 +49,20 @@ public class Player {
 		return cashAccount.getValue();
 	}
 
-	public long getShareValue() {
+	public long getDepositValue() {
 		return shareDepositAccount.getValue();
+	}
+
+	public int getShareCount(Share share) {
+		return shareDepositAccount.getSharesCount(share);
+	}
+
+	public long getSharesValue(Share share) {
+		return shareDepositAccount.getSharesValue(share);
+	}
+
+	public long getSharesBuyValue(Share share) {
+		return shareDepositAccount.getSharesBuyValue(share);
 	}
 
 }

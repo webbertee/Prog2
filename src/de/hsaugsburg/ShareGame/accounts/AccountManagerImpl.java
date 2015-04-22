@@ -37,8 +37,8 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	public long getPlayerSharesValue(String name) {
-		return getPlayer(name).getShareValue();
+	public long getPlayerDepositValue(String name) {
+		return getPlayer(name).getDepositValue();
 	}
 
 	@Override
@@ -49,10 +49,24 @@ public class AccountManagerImpl implements AccountManager {
 	@Override
 	public long getPlayerAssetValue(String name) {
 		Player p = getPlayer(name);
-		return p.getCashValue() + p.getShareValue();
+		return p.getCashValue() + p.getDepositValue();
+	}
+
+	@Override
+	public int getPlayerSharesCount(String name, String shareName) {
+		return getPlayer(name).getShareCount(priceProvider.getShare(shareName));
 	}
 
 
+	@Override
+	public long getPlayerSharesValue(String name, String shareName) {
+		return getPlayer(name).getSharesValue(priceProvider.getShare(shareName));
+	}
+	
+	@Override
+	public long getPlayerSharesBuyValue(String name, String shareName) {
+		return getPlayer(name).getSharesBuyValue(priceProvider.getShare(shareName));
+	}	
 	
 	private int getPlayerIndex(String name) {
 		for(int i = 0; i < playerCount; i++) {
@@ -68,5 +82,6 @@ public class AccountManagerImpl implements AccountManager {
 			throw new UnknownPlayerException(name);
 		return players[playerI];
 	}
+
 	
 }

@@ -32,7 +32,7 @@ public interface AccountManager {
 	 * 
 	 * @param name
 	 */
-	public long getPlayerSharesValue(String name);
+	public long getPlayerDepositValue(String name);
 
 	/**
 	 * 
@@ -46,6 +46,10 @@ public interface AccountManager {
 	 */
 	public long getPlayerAssetValue(String name);
 
-
-
+	public int getPlayerSharesCount(String name, String shareName);
+	
+	public long getPlayerSharesValue(String name, String shareName);
+	
+	public long getPlayerSharesBuyValue(String name, String shareName);
+	
 }

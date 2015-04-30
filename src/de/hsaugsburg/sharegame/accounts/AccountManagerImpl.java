@@ -18,9 +18,9 @@ public class AccountManagerImpl implements AccountManager {
 	
 	
 	@Override
-	public void addPlayer(String name, long cash) {
+	public void addPlayer(String name, long cash) throws PlayerAlreadyExistsException {
 		if(getPlayerIndex(name) >= 0)
-			throw new PlayerAlreadyExistsException();
+			throw new PlayerAlreadyExistsException(name);
 		
 		players[playerCount] = new Player(name, cash);
 		playerCount++;
@@ -32,7 +32,7 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	public void sellShare(String playerName, String shareName, int count) {
+	public void sellShare(String playerName, String shareName, int count)  {
 		getPlayer(playerName).sellShare(priceProvider.getShare(shareName), count);
 	}
 

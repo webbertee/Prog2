@@ -16,7 +16,7 @@ public class CashAccount extends Asset {
 			value -= amount;
 			return;
 		}else {
-			throw new NotEnoughMoneyException();
+			throw new NotEnoughMoneyException(this.getName(), amount-value);
 		}
 	}
 	public long getValue() {

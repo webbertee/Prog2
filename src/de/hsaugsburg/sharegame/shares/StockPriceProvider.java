@@ -64,7 +64,7 @@ public abstract class StockPriceProvider implements StockPriceInfo {
 		return -1;
 	}
 	
-	public Share getShare(String name) {
+	public Share getShare(String name)  {
 		int shareI = getShareIndex(name);
 		if(shareI < 0)
 			throw new UnknownShareException(name);

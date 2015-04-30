@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import de.hsaugsburg.sharegame.shares.StockPriceInfo;
+import de.hsaugsburg.sharegame.shares.exceptions.UnknownShareException;
 import de.hsaugsburg.sharegame.timer.SingleTimer;
 
 @SuppressWarnings("serial")
@@ -29,7 +30,7 @@ public class Viewer extends JFrame {
 	}
 
 	public void start() {
-		ticker = SingleTimer.getTimer(); // as daemon
+		ticker = SingleTimer.getTimer();
 		ticker.scheduleAtFixedRate(new TickerTask(), 1000, TICK_PERIOD);
 	}
 
@@ -53,7 +54,12 @@ public class Viewer extends JFrame {
 				buffer.append("<tr><td>");
 				buffer.append(s);
 				buffer.append("</td><td>");
-				buffer.append(df.format(priceInfo.getShareValue(s)/100.0));
+				try {
+					buffer.append(df.format(priceInfo.getShareValue(s)/100.0));
+				} catch (UnknownShareException e) {
+					//this should not happen
+					e.printStackTrace();
+				}
 				buffer.append("</td></tr>");
 			}
 			buffer.append("</table>");

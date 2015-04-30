@@ -1,4 +1,4 @@
-package de.hsaugsburg.sharegame.commands;
+package de.hsaugsburg.commands;
 
 public interface CommandTypeInfo {
 	String getName();

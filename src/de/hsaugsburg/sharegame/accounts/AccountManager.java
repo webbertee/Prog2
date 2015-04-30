@@ -1,12 +1,14 @@
 package de.hsaugsburg.sharegame.accounts;
 
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
+import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 
 public interface AccountManager {
 
 	/**
 	 * 
 	 * @param name
+	 * @throws PlayerAlreadyExistsException 
 	 */
 	public void addPlayer(String name, long cash);
 	
@@ -17,6 +19,7 @@ public interface AccountManager {
 	 * @param shareName
 	 * @param count
 	 * @throws NotEnoughMoneyException 
+	 * @throws UnknownShareException 
 	 */
 	public void buyShare(String playerName, String shareName, int count) throws NotEnoughMoneyException;
 
@@ -25,6 +28,7 @@ public interface AccountManager {
 	 * @param playerName
 	 * @param shareName
 	 * @param count
+	 * @throws UnknownShareException 
 	 */
 	public void sellShare(String playerName, String shareName, int count);
 

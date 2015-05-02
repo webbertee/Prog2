@@ -1,0 +1,16 @@
+Probleme mit dem Desing:
+- Annotations: Code für die Kommandos geht in den Code für den Accoutnmanager, 
+  Annotationes werden groß wenn das Feedback Miteinbegriffen wird, v. a. zum handeln
+  von Exceptions
+- Mehrsprachigkeit: Annotations werden zur Kompiliertzeit festgelegt, sprachänderung für
+  Feedback erschwert
+- Komplexere befehle: effect des Kommandos kommt auf Kontext an
+
+Alternative:
+->Klassen implementieren ein Command-Interface, registrieren sich beim CommandScanner (über Reflection)
+ +Komplexere Anwendungsfälle
+ +Übersichtlicheres handeln von Anwendungsfällen
+ +Plug-In Fähigkeit: Einfach Befehle hinzufügen
+ 
+ -Seperates parsen
+ -mehr aufwand für einfache Befehle

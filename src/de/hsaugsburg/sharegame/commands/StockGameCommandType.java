@@ -1,7 +1,5 @@
 package de.hsaugsburg.sharegame.commands;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import de.hsaugsburg.commands.CommandTypeInfo;
 

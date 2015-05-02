@@ -14,7 +14,6 @@ import de.hsaugsburg.sharegame.accounts.AccountManager;
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 import de.hsaugsburg.sharegame.accounts.exceptions.UnknownPlayerException;
-import de.hsaugsburg.sharegame.shares.StockPriceProvider;
 import de.hsaugsburg.sharegame.shares.exceptions.UnknownShareException;
 
 public class StockGameCommandProcessor {
@@ -22,17 +21,15 @@ public class StockGameCommandProcessor {
 	// private BufferedReader shellIn;
 	private PrintWriter shellOut;
 	private AccountManager am;
-	private StockPriceProvider spp;
 
 	public StockGameCommandProcessor(InputStream inStream,
-			PrintStream outStream, AccountManager am, StockPriceProvider spp) {
+			PrintStream outStream, AccountManager am) {
 
 		this.shellOut = new PrintWriter(outStream, true);
 
 		this.commandScanner = new CommandScanner(StockGameCommandType.values(),
 				new BufferedReader(new InputStreamReader(inStream)));
 
-		this.spp = spp;
 		this.am = am;
 	}
 

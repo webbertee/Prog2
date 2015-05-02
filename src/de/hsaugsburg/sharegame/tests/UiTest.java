@@ -18,7 +18,7 @@ public class UiTest {
 		AccountManager am = new AccountManagerImpl(provider);
 		
 		StockGameCommandProcessor processor = new StockGameCommandProcessor(
-				System.in, System.out, am, provider);
+				System.in, System.out, am);
 		
 		processor.startLoop();
 	}

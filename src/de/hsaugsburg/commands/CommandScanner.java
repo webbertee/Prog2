@@ -9,6 +9,7 @@ public class CommandScanner {
 	BufferedReader shellIn;
 	CommandTypeInfo[] commTypes;
 
+
 	public CommandScanner(CommandTypeInfo[] commTypes,
 			BufferedReader shellIn) {
 		this.commTypes = commTypes;

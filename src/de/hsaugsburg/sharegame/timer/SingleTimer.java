@@ -7,7 +7,7 @@ public class SingleTimer {
 	
 	public static Timer getTimer() {
 		if(timer == null) {
-			timer = new Timer();
+			timer = new Timer(true);
 		}
 		return timer;
 	}

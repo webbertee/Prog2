@@ -1,9 +1,5 @@
 package de.hsaugsburg.sharegame.tests;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-
 import de.hsaugsburg.sharegame.accounts.AccountManager;
 import de.hsaugsburg.sharegame.accounts.AccountManagerImpl;
 import de.hsaugsburg.sharegame.assets.Share;
@@ -25,6 +21,5 @@ public class UiTest {
 				System.in, System.out, am, provider);
 		
 		processor.startLoop();
-
 	}
 }

@@ -1,6 +1,6 @@
 package de.hsaugsburg.sharegame.accounts.exceptions;
 
-public class NotEnoughMoneyException extends Exception {
+public class NotEnoughMoneyException extends RuntimeException {
 	
 	public NotEnoughMoneyException(String accountName, long missingMoney) {
 		super();

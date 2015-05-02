@@ -1,4 +1,5 @@
 Probleme mit dem Desing:
+- Befehle Werden auf mehr als einem Objekt ausgeführt
 - Annotations: Code für die Kommandos geht in den Code für den Accoutnmanager, 
   Annotationes werden groß wenn das Feedback Miteinbegriffen wird, v. a. zum handeln
   von Exceptions
@@ -14,3 +15,9 @@ Alternative:
  
  -Seperates parsen
  -mehr aufwand für einfache Befehle
+ 
+ 
+ 
+ 
+ Frage: Lamda-Expressions?
+  -Problem: Argumente Parsen

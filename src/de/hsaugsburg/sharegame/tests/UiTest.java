@@ -2,6 +2,7 @@ package de.hsaugsburg.sharegame.tests;
 
 import de.hsaugsburg.sharegame.accounts.AccountManager;
 import de.hsaugsburg.sharegame.accounts.AccountManagerImpl;
+import de.hsaugsburg.sharegame.agent.SimpleAgent;
 import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.commands.StockGameCommandProcessor;
 import de.hsaugsburg.sharegame.shares.ConstStockPriceProvider;
@@ -24,6 +25,7 @@ public class UiTest {
 				System.in, System.out, am);
 		
 		new Viewer(provider).start();
+		new SimpleAgent("bot", 10000, am, provider, 1000).start();
 		
 		processor.startLoop();
 	}

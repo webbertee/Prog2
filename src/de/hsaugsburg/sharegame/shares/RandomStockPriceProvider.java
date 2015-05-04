@@ -24,8 +24,15 @@ public class RandomStockPriceProvider extends StockPriceProvider {
 
 	@Override
 	protected void updateShareRate(Share share) {
-		long rnd = share.getValue()  + Math.round(rndGen.nextGaussian()*deviaton);
+		//long rnd = share.getValue()  + Math.round(rndGen.nextGaussian()*deviaton);
+		//long rnd = (share.getValue() + randomSign() * ((long) (share.getValue() * Math.random()*0.1)));
+		long rnd = share.getValue() + 10*Math.round(Math.random() >= 0.5 ? +1 : -1);
 		if(rnd > 0)
 			share.setValue(rnd);
 	}
+
+
+//	private long randomSign() {
+//		return (int) (Math.round(Math.random() * 2 -1));
+//	}
 }

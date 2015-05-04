@@ -8,8 +8,9 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 
 import de.hsaugsburg.commands.CommandDescriptor;
-import de.hsaugsburg.commands.CommandDescriptor.ExeResult;
+import de.hsaugsburg.commands.CommandTypeInfo.ExeResult;
 import de.hsaugsburg.commands.CommandScanner;
+import de.hsaugsburg.commands.CommandTypeInfo;
 import de.hsaugsburg.sharegame.accounts.AccountManager;
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
@@ -60,10 +61,13 @@ public class StockGameCommandProcessor {
 			
 			
 			try {
-				ExeResult res = cd.execute(am);
-				if(res == ExeResult.EXIT) {
+				String message = cd.execute(am);
+				if(message != null)
+					shellOut.println(message);
+					
+				if(cd.getCommandType().getExeResult() == ExeResult.EXIT) {
 					break;
-				} else if(res == ExeResult.HELP) {
+				} else if(cd.getCommandType().getExeResult() == ExeResult.HELP) {
 					for(StockGameCommandType c : StockGameCommandType.values()) {
 						shellOut.println(c.getName() + c.getHelpText());
 					}

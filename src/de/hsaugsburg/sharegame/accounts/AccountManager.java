@@ -54,6 +54,6 @@ public interface AccountManager {
 	
 	public long getPlayerSharesValue(String name, String shareName);
 	
-	public long getPlayerSharesBuyValue(String name, String shareName);
+	public long getPlayerSharesProfit(String name, String shareName);
 	
 }

@@ -4,8 +4,10 @@ import de.hsaugsburg.sharegame.accounts.AccountManager;
 import de.hsaugsburg.sharegame.accounts.AccountManagerImpl;
 import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.commands.StockGameCommandProcessor;
+import de.hsaugsburg.sharegame.shares.ConstStockPriceProvider;
 import de.hsaugsburg.sharegame.shares.RandomStockPriceProvider;
 import de.hsaugsburg.sharegame.shares.StockPriceProvider;
+import de.hsaugsburg.sharegame.viewer.Viewer;
 
 public class UiTest {
 	public static void main(String[] args) {
@@ -14,11 +16,14 @@ public class UiTest {
 				new Share("SAP", 12000) };
 		
 		StockPriceProvider provider;
-		provider = new RandomStockPriceProvider(shares, 1000, 1000, 1000);
+		provider = new RandomStockPriceProvider(shares, 1000, 1, 1000);
+		//provider = new ConstStockPriceProvider(shares);
 		AccountManager am = new AccountManagerImpl(provider);
 		
 		StockGameCommandProcessor processor = new StockGameCommandProcessor(
 				System.in, System.out, am);
+		
+		new Viewer(provider).start();
 		
 		processor.startLoop();
 	}

@@ -3,6 +3,7 @@ package de.hsaugsburg.sharegame.accounts;
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 import de.hsaugsburg.sharegame.accounts.exceptions.UnknownPlayerException;
+import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.shares.StockPriceProvider;
 
 public class AccountManagerImpl implements AccountManager {
@@ -11,6 +12,7 @@ public class AccountManagerImpl implements AccountManager {
 	private final int SIZE = 32;
 	private int playerCount = 0;
 	private StockPriceProvider priceProvider;
+	
 	public AccountManagerImpl(StockPriceProvider priceProvider) {
 		players = new Player[SIZE];
 		this.priceProvider = priceProvider;
@@ -64,8 +66,10 @@ public class AccountManagerImpl implements AccountManager {
 	}
 	
 	@Override
-	public long getPlayerSharesBuyValue(String name, String shareName) {
-		return getPlayer(name).getSharesBuyValue(priceProvider.getShare(shareName));
+	public long getPlayerSharesProfit(String name, String shareName) {
+		Player p = getPlayer(name);
+		Share s = priceProvider.getShare(shareName);
+		return p.getSharesValue(s) - p.getSharesBuyValue(s);
 	}	
 	
 	private int getPlayerIndex(String name) {

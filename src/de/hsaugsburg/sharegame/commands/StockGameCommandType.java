@@ -40,13 +40,13 @@ public enum StockGameCommandType implements CommandTypeInfo{
 					String.class),
 	SHOWASSETVALUE	("sav", 
 					"<playername> * show asset value",
-					"Value of assets",
+					"Value of assets: ",
 					ExeResult.SUCCESS,
 					"getPlayerAssetValue", 
 					String.class),
 	SHOWSHARECOUNT	("ssc",
 					"<playername> <sharename> * show amount of shares in deposit", 
-					"Number of Shares",
+					"Number of Shares: ",
 					ExeResult.SUCCESS,
 					"getPlayerSharesCount",
 					String.class, String.class),
@@ -55,7 +55,14 @@ public enum StockGameCommandType implements CommandTypeInfo{
 					"Profit made: ",
 					ExeResult.SUCCESS,
 					"getPlayerSharesProfit", 
-					String.class, String.class)
+					String.class, String.class),
+					
+	ADDBOT			("bot",
+					"<playername>, <buycount>, <intervall>",
+					"Added bot to player",
+					ExeResult.SUCCESS,
+					"addBotToPlayer",
+					String.class, int.class, long.class)
 	//SHOWSALLSHARES	("sas", " * show all shares")
 	
 	;

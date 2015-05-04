@@ -13,24 +13,23 @@ public class SimpleAgent {
 	private StockPriceProvider spp;
 	private long intervall;
 	private HashMap<String, Long> priceMap;
-	private final int BUYCOUNT = 10;
+	private final int buycount;
 
-	public SimpleAgent(String name, long cash, AccountManager am,
-			StockPriceProvider spp, long intervall) {
+	public SimpleAgent(String name, AccountManager am,
+			StockPriceProvider spp, long intervall, int buycount) {
 		this.name = name;
 		this.am = am;
 		this.spp = spp;
 		this.intervall = intervall;
+		this.buycount = buycount;
 		priceMap = new HashMap<String, Long>();
 		for (String s : spp.getShareNames())
 			priceMap.put(s, spp.getShareValue(s));
-		
-		am.addPlayer(name, cash);
 
 	}
 
 	public void start() {
-		SingleTimer.getTimer().schedule(new TimerTask() {
+		SingleTimer.getTimer().scheduleAtFixedRate(new TimerTask() {
 
 			@Override
 			public void run() {
@@ -43,12 +42,14 @@ public class SimpleAgent {
 
 					// if price has risen -> sell; else buy
 					if (price > priceMap.get(s)) {
-						if (count > 0) {
+						if (count > 0 && am.getPlayerSharesProfit(name, s) > 0) {
+							//System.out.println("Sold share" + s);
 							am.sellShare(name, s, count);
 						}
 					} else {
-						if (am.getPlayerCashValue(name) >= BUYCOUNT * price) {
-							am.buyShare(name, s, BUYCOUNT);
+						if (am.getPlayerCashValue(name) >= buycount * price) {
+							//System.out.println("Bought share " + s);
+							am.buyShare(name, s, buycount);
 						}
 					}
 
@@ -57,7 +58,7 @@ public class SimpleAgent {
 				}
 			}
 
-		}, 0);
+		}, 0, intervall);
 	}
 
 }

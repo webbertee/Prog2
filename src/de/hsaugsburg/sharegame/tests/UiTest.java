@@ -25,7 +25,7 @@ public class UiTest {
 				System.in, System.out, am);
 		
 		new Viewer(provider).start();
-		new SimpleAgent("bot", 10000, am, provider, 1000).start();
+		
 		
 		processor.startLoop();
 	}

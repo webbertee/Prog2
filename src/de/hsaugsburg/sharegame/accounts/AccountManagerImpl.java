@@ -3,6 +3,7 @@ package de.hsaugsburg.sharegame.accounts;
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 import de.hsaugsburg.sharegame.accounts.exceptions.UnknownPlayerException;
+import de.hsaugsburg.sharegame.agent.SimpleAgent;
 import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.shares.StockPriceProvider;
 
@@ -85,6 +86,12 @@ public class AccountManagerImpl implements AccountManager {
 		if(playerI < 0)
 			throw new UnknownPlayerException(name);
 		return players[playerI];
+	}
+
+
+	@Override
+	public void addBotToPlayer(String name, int buycount, long intervall) {
+		new SimpleAgent(name, this, priceProvider, intervall, buycount).start();
 	}
 
 	

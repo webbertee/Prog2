@@ -1,14 +1,17 @@
 package de.hsaugsburg.sharegame.accounts;
 
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
+import de.hsaugsburg.sharegame.agent.SimpleAgent;
 import de.hsaugsburg.sharegame.assets.CashAccount;
 import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.assets.ShareDepositAccount;
+import de.hsaugsburg.sharegame.shares.StockPriceProvider;
 
 public class Player {
 	private CashAccount cashAccount;
 	private ShareDepositAccount shareDepositAccount;
 	private String name;
+	private SimpleAgent bot;
 
 	/**
 	 * 
@@ -33,6 +36,19 @@ public class Player {
 	public void buyShare(Share share, int count) throws NotEnoughMoneyException {
 		cashAccount.remove(share.getValue() * count);
 		shareDepositAccount.addShare(share, count);
+	}
+	
+	public void addBot(StockPriceProvider spp, long intervall) {
+		if(this.bot == null)
+			bot = new SimpleAgent(this, spp);
+		
+		bot = new SimpleAgent(this, spp);
+		bot.start(intervall);
+	}
+	
+	public void removeBot() {
+		if(this.bot != null) 
+			bot.stop();
 	}
 
 	/**

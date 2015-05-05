@@ -56,6 +56,8 @@ public interface AccountManager {
 	
 	public long getPlayerSharesProfit(String name, String shareName);
 
-	public void addBotToPlayer(String name, int buycount, long intervall);
+	public void addBot(String name, long intervall);
+	
+	public void removeBot(String name);
 	
 }

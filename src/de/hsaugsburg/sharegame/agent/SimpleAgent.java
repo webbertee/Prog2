@@ -1,64 +1,68 @@
 package de.hsaugsburg.sharegame.agent;
 
-import java.util.HashMap;
 import java.util.TimerTask;
 
-import de.hsaugsburg.sharegame.accounts.AccountManager;
+import de.hsaugsburg.sharegame.accounts.Player;
+import de.hsaugsburg.sharegame.accounts.exceptions.BotAlreadyWorkingException;
+import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.shares.StockPriceProvider;
 import de.hsaugsburg.sharegame.timer.SingleTimer;
 
 public class SimpleAgent {
-	private String name;
-	private AccountManager am;
-	private StockPriceProvider spp;
-	private long intervall;
-	private HashMap<String, Long> priceMap;
-	private final int buycount;
+	private final Player p;
+	private final StockPriceProvider spp;
+	private TimerTask task;
 
-	public SimpleAgent(String name, AccountManager am,
-			StockPriceProvider spp, long intervall, int buycount) {
-		this.name = name;
-		this.am = am;
+
+
+	public SimpleAgent(Player p, StockPriceProvider spp) {
+		this.p = p;
 		this.spp = spp;
-		this.intervall = intervall;
-		this.buycount = buycount;
-		priceMap = new HashMap<String, Long>();
-		for (String s : spp.getShareNames())
-			priceMap.put(s, spp.getShareValue(s));
-
+	}
+	
+	public void stop() {
+		if(task != null)
+			task.cancel();
 	}
 
-	public void start() {
-		SingleTimer.getTimer().scheduleAtFixedRate(new TimerTask() {
+	public void start(long intervall) {
+		if(task != null) 
+			throw new BotAlreadyWorkingException();
+		
+		task = new TimerTask() {
 
 			@Override
 			public void run() {
-				long price;
-				int count;
-				for (String s : spp.getShareNames()) {
-					// get Value and amount
-					price = spp.getShareValue(s);
-					count = am.getPlayerSharesCount(name, s);
-
-					// if price has risen -> sell; else buy
-					if (price > priceMap.get(s)) {
-						if (count > 0 && am.getPlayerSharesProfit(name, s) > 0) {
-							//System.out.println("Sold share" + s);
-							am.sellShare(name, s, count);
-						}
-					} else {
-						if (am.getPlayerCashValue(name) >= buycount * price) {
-							//System.out.println("Bought share " + s);
-							am.buyShare(name, s, buycount);
-						}
-					}
-
-					// save new values
-					priceMap.put(s, spp.getShareValue(s));
-				}
+				String[] shares = spp.getShareNames();
+				sellShares(shares);
+				buyShares(shares);
 			}
 
-		}, 0, intervall);
+			private void sellShares(String[] shares) {
+				Share share;
+				int count;
+				for(String shareName : shares) {
+					share = spp.getShare(shareName);
+					count = p.getShareCount(share);
+					if(share.getValue() * count - p.getSharesBuyValue(share) > 0) {
+						p.sellShare(share, count);
+					}
+				}
+			}
+			
+			private void buyShares(String[] shares) {
+				long perShare = p.getCashValue() / shares.length;
+				int count;
+				for(int i = 0; i < shares.length; i++) {
+					count = (int) Math.floor(perShare / spp.getShareValue(shares[i]));
+					if(count > 0)
+						p.buyShare(spp.getShare(shares[i]), count);
+				}
+				
+			}
+		};
+		SingleTimer.getTimer().scheduleAtFixedRate(task, 0, intervall);
 	}
+
 
 }

@@ -59,7 +59,7 @@ public class CommandScanner {
 			cDescriptor.setParams(comParams);
 			cDescriptor.setValid(true);
 		} catch (NumberFormatException e) {
-			//invalid integer argument
+			//Exception werfen
 			return;
 		} 
 	}

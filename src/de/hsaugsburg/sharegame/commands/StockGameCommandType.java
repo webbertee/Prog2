@@ -57,12 +57,18 @@ public enum StockGameCommandType implements CommandTypeInfo{
 					"getPlayerSharesProfit", 
 					String.class, String.class),
 					
-	ADDBOT			("bot",
-					"<playername>, <buycount>, <intervall>",
+	ADDBOT			("abot",
+					"<playername>, <intervall>",
 					"Added bot to player",
 					ExeResult.SUCCESS,
-					"addBotToPlayer",
-					String.class, int.class, long.class)
+					"addBot",
+					String.class, long.class),
+	REMOVEBOT		("rbot",
+					"<playername>",
+					"removed bot from player",
+					ExeResult.SUCCESS,
+					"removeBot",
+					String.class)
 	//SHOWSALLSHARES	("sas", " * show all shares")
 	
 	;

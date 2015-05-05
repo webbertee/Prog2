@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 import de.hsaugsburg.commands.CommandDescriptor;
 import de.hsaugsburg.commands.CommandTypeInfo.ExeResult;
 import de.hsaugsburg.commands.CommandScanner;
-import de.hsaugsburg.commands.CommandTypeInfo;
 import de.hsaugsburg.sharegame.accounts.AccountManager;
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;

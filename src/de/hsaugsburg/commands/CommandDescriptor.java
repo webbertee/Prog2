@@ -3,20 +3,14 @@ package de.hsaugsburg.commands;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import de.hsaugsburg.commands.exceptions.UnsopportedParameterException;
+
 public class CommandDescriptor {
 	private CommandTypeInfo commandType;
 	private Object[] params;
 	private boolean valid;
 
 	// Commandscanner verwaltet die Daten des commanddescriptors->design?
-
-	public boolean isValid() {
-		return valid;
-	}
-
-	public void setValid(boolean valid) {
-		this.valid = valid;
-	}
 
 	public CommandTypeInfo getCommandType() {
 		return commandType;
@@ -34,36 +28,21 @@ public class CommandDescriptor {
 		this.params = params;
 	}
 
-	public String execute(Object obj) {
-		String method = commandType.getMethod();
-		String message = null;
-
-		if (method != null) {
-			Class<?> objClass = obj.getClass();
-			try {
-				Method exeMethod = objClass.getMethod(method,
-						commandType.getParamTypes());
-				Object result = exeMethod.invoke(obj, params);
-				
-				if (commandType.getMessage() != null) {
-					message = commandType.getMessage();
-					if (result != null) {
-						message += result;
-					}
-				}
-			} catch (NoSuchMethodException | SecurityException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				Throwable cause = e.getCause();
-				if (cause instanceof RuntimeException) {
-					throw (RuntimeException) cause;
-				}
-				e.printStackTrace();
-			}
+	public String execute() {
+		String message;
+		try {
+			message = (String) commandType.getMethod().invoke(commandType.getTarget(), params);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			message = "An Internal Error occured";
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			message = "An Internal Error occured";
+		} catch (InvocationTargetException e) {
+			if(e.getCause() instanceof RuntimeException)
+				throw (RuntimeException)e.getCause();
+			else
+				throw new UnsopportedParameterException("Command can only throw Runtime Exceptions");
 		}
 		return message;
 	}

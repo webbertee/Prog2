@@ -1,4 +1,4 @@
-package de.hsaugsburg.sharegame.commands.exceptions;
+package de.hsaugsburg.commands.exceptions;
 
 @SuppressWarnings("serial")
 public class UnsopportedParameterException extends RuntimeException {

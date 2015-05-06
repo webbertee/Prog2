@@ -2,72 +2,64 @@ package de.hsaugsburg.commands;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Map;
 
-import de.hsaugsburg.sharegame.commands.exceptions.UnsopportedParameterException;
+import de.hsaugsburg.commands.exceptions.CommandParseException;
+import de.hsaugsburg.commands.exceptions.UnsopportedParameterException;
 
 public class CommandScanner {
-	BufferedReader shellIn;
-	CommandTypeInfo[] commTypes;
+	private BufferedReader shellIn;
+	private Map<String, CommandTypeInfo> commTypes;
 
 
-	public CommandScanner(CommandTypeInfo[] commTypes,
-			BufferedReader shellIn) {
+	public CommandScanner(Map<String, CommandTypeInfo> commTypes, BufferedReader shellIn) {
 		this.commTypes = commTypes;
 		this.shellIn = shellIn;
 	}
 
 	public void inputLine2CommandDescriptor(CommandDescriptor cDescriptor)
-			throws IOException {
-		// Initialize cDescritopr
-		cDescriptor.setValid(false);
-		cDescriptor.setCommandType(null);
-		cDescriptor.setParams(null);
-
+			throws CommandParseException {
 		// split command into parameters
-		String[] input = shellIn.readLine().trim().split(" ");
-
-		// find command type
-		for (CommandTypeInfo t : commTypes) {
-			if (t.getName().equalsIgnoreCase(input[0]))
-				cDescriptor.setCommandType(t);
-		}
-
-		// Abroad if command was not found
-		if (cDescriptor.getCommandType() == null) {
-			return;
-		}
-
-		// Abroad if number of commands is invalid
-		Class<?>[] paramTypes = cDescriptor.getCommandType().getParamTypes();
-		if ((input.length - 1) != paramTypes.length) {
-			return;
-		}
-		// Try to cast the object into the Param Types
-		Object[] comParams = new Object[paramTypes.length];
+		String[] input;
 		try {
-			for (int i = 0; i < paramTypes.length; i++) {
-				if (paramTypes[i] == String.class) {
+			input = shellIn.readLine().trim().split(" ");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			throw new CommandParseException("Error while reading the command");
+		}
+
+
+		cDescriptor.setCommandType(commTypes.get(input[0]));
+		// Abroad if command was not found
+		if (cDescriptor.getCommandType() == null)
+			throw new CommandParseException(null);
+
+		
+		// Abroad if number of commands is invalid
+		Class<?>[] argTypes = cDescriptor.getCommandType().getArgTypes();
+		if ((input.length - 1) != argTypes.length) {
+			throw new CommandParseException(cDescriptor.getCommandType().getHelpText());
+		}
+		
+		
+		// Try to cast the object into the Param Types
+		Object[] comParams = new Object[argTypes.length];
+		try {
+			for (int i = 0; i < argTypes.length; i++) {
+				if (argTypes[i] == String.class) {
 					comParams[i] = input[i+1];
-				} else if (paramTypes[i] == int.class) {
+				} else if (argTypes[i] == int.class) {
 					comParams[i] = Integer.parseInt(input[i+1]);
-				} else if(paramTypes[i] == long.class) {
+				} else if(argTypes[i] == long.class) {
 					comParams[i] = Long.parseLong(input[i+1]);
 				} else {
-					throw new UnsopportedParameterException(paramTypes[i].getName());
+					throw new UnsopportedParameterException(argTypes[i].getName());
 				}
 			}
 			cDescriptor.setParams(comParams);
-			cDescriptor.setValid(true);
 		} catch (NumberFormatException e) {
-			//Exception werfen
-			return;
+			throw new CommandParseException(cDescriptor.getCommandType().getHelpText());
 		} 
 	}
-	private static class ComObject {
-		final Object obj;
-		final CommandTypeInfo type;
-		public ComObject(Object obj) {
-			this.obj = obj;
-		}
-	}
+
 }

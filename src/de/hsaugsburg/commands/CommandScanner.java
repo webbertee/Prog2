@@ -63,4 +63,11 @@ public class CommandScanner {
 			return;
 		} 
 	}
+	private static class ComObject {
+		final Object obj;
+		final CommandTypeInfo type;
+		public ComObject(Object obj) {
+			this.obj = obj;
+		}
+	}
 }

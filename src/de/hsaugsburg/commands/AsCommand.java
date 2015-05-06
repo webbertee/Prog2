@@ -1,6 +1,7 @@
 package de.hsaugsburg.commands;
 
 public @interface AsCommand {
-	String value();
+	String command();
 	String descripton();
+	String feedback();
 }

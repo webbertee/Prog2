@@ -23,13 +23,8 @@ public class UiTest {
 		AccountManager am = new AccountManagerImpl(provider);
 		
 		StockGameCommandProcessor processor = new StockGameCommandProcessor(
-				System.in, System.out, am);
+				System.in, System.out, am, provider);
+		processor.start();
 		
-		new Viewer(provider).start();
-		
-		am.addPlayer("bot", 1000000);
-		new PlayerViewer("bot", am, provider).start();
-		processor.startLoop();
-		System.exit(0);
 	}
 }

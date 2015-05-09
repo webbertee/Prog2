@@ -29,9 +29,11 @@ public class CommandDescriptor {
 	}
 
 	public String execute() {
-		String message;
+		String message = commandType.getFeedback();
 		try {
-			message = (String) commandType.getMethod().invoke(commandType.getTarget(), params);
+			String result = (String) commandType.getMethod().invoke(commandType.getTarget(), params);
+			if(result != null) 
+				message += result;
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 			message = "An Internal Error occured";

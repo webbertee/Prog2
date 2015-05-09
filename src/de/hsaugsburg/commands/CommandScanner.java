@@ -32,13 +32,14 @@ public class CommandScanner {
 		cDescriptor.setCommandType(commTypes.get(input[0]));
 		// Abroad if command was not found
 		if (cDescriptor.getCommandType() == null)
-			throw new CommandParseException(null);
+			throw new CommandParseException("Command not found. use 'help' to show a list of all commands");
 
 		
 		// Abroad if number of commands is invalid
 		Class<?>[] argTypes = cDescriptor.getCommandType().getArgTypes();
 		if ((input.length - 1) != argTypes.length) {
-			throw new CommandParseException(cDescriptor.getCommandType().getHelpText());
+			throw new CommandParseException(cDescriptor.getCommandType().getCommand() 
+					+ " " + cDescriptor.getCommandType().getHelpText());
 		}
 		
 		

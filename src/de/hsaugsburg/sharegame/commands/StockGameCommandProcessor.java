@@ -1,87 +1,52 @@
 package de.hsaugsburg.sharegame.commands;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 
-import de.hsaugsburg.commands.CommandDescriptor;
-import de.hsaugsburg.commands.CommandTypeInfo.ExeResult;
-import de.hsaugsburg.commands.CommandScanner;
+import de.hsaugsburg.commands.AsCommand;
+import de.hsaugsburg.commands.CommandProcessor;
 import de.hsaugsburg.sharegame.accounts.AccountManager;
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 import de.hsaugsburg.sharegame.accounts.exceptions.UnknownPlayerException;
+import de.hsaugsburg.sharegame.shares.StockPriceInfo;
 import de.hsaugsburg.sharegame.shares.exceptions.UnknownShareException;
 
 public class StockGameCommandProcessor {
-	private CommandScanner commandScanner;
-	// private BufferedReader shellIn;
-	private PrintWriter shellOut;
-	private AccountManager am;
+	private CommandProcessor cProcessor;
+	private PrintStream outStream;
 
 	public StockGameCommandProcessor(InputStream inStream,
-			PrintStream outStream, AccountManager am) {
+			PrintStream outStream, AccountManager am, StockPriceInfo spp) {
+		cProcessor = new CommandProcessor(inStream, outStream, am, spp, this);
+		this.outStream = outStream;
 
-		this.shellOut = new PrintWriter(outStream, true);
-
-		this.commandScanner = new CommandScanner(StockGameCommandType.values(),
-				new BufferedReader(new InputStreamReader(inStream)));
-
-		this.am = am;
 	}
 
-	public void startLoop() {
-		CommandDescriptor cd = new CommandDescriptor();
+	@AsCommand(command = "exit", feedback = "exiting...", helpText = "* stops the Stockgame")
+	public void exit() {
+		System.exit(0);
+	}
 
-		while (true) { // the loop over all commands with one input
-						// line for every command
-
+	public void start() {
+		while (true) {
 			try {
-				commandScanner.inputLine2CommandDescriptor(cd);
-			} catch (IOException e) {
-				shellOut.println("Reading the command Faied, try again");
-				continue;
-			}
-			
-			
-			if (!cd.isValid()) {
-				if (cd.getCommandType() == null) {
-					shellOut.println("Unknown command. Type 'help' for a list of commands");
-				} else {
-					shellOut.println("Could not read command: " );
-					shellOut.println(cd.getCommandType().getName() + " "
-							+ cd.getCommandType().getHelpText());
-				}
-				continue;
-			}
-			
-			
-			try {
-				String message = cd.execute(am);
-				if(message != null)
-					shellOut.println(message);
-					
-				if(cd.getCommandType().getExeResult() == ExeResult.EXIT) {
-					break;
-				} else if(cd.getCommandType().getExeResult() == ExeResult.HELP) {
-					for(StockGameCommandType c : StockGameCommandType.values()) {
-						shellOut.println(c.getName() + c.getHelpText());
-					}
-				}
-				
+				cProcessor.readCommand();
 			} catch (UnknownShareException e) {
-				shellOut.println("Unknown share: " + e.getShareName());
+				outStream.println("Unknown share: " + e.getShareName());
+
 			} catch (UnknownPlayerException e) {
-				shellOut.println("Player " + e.getMessage()
+				outStream.println("Player " + e.getMessage()
 						+ " does not exist.");
+
 			} catch (NotEnoughMoneyException e) {
-				shellOut.println("Not enough money, "
-						+ e.getMissingMoney() + " missing.");
+				outStream.println("Not enough money, " + e.getMissingMoney()
+						+ " missing.");
+
 			} catch (PlayerAlreadyExistsException e) {
-				shellOut.println("Player " + e.getMessage() + " already exists");
+				outStream.println("Player " + e.getMessage()
+						+ " already exists");
+
 			}
 		}
 	}

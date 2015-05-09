@@ -1,86 +1,74 @@
 package de.hsaugsburg.commands;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 
-import de.hsaugsburg.sharegame.accounts.AccountManager;
-import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
-import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
-import de.hsaugsburg.sharegame.accounts.exceptions.UnknownPlayerException;
-import de.hsaugsburg.sharegame.commands.StockGameCommandType;
-import de.hsaugsburg.sharegame.shares.exceptions.UnknownShareException;
+import de.hsaugsburg.commands.exceptions.CommandNameException;
+import de.hsaugsburg.commands.exceptions.CommandParseException;
 
 public class CommandProcessor {
 
 	private PrintWriter shellOut;
 	private CommandScanner commandScanner;
+	Map<String, CommandTypeInfo> commandTypes;
 
-	public CommandProcessor(InputStream inStream,
-			PrintStream outStream, AccountManager am, Class<?>... commandClasses) {
+	public CommandProcessor(InputStream inStream, PrintStream outStream,
+			Object... commandClasses) {
 
 		this.shellOut = new PrintWriter(outStream, true);
 
-		//this.commandScanner = new CommandScanner(StockGameCommandType.values(),
-		//		new BufferedReader(new InputStreamReader(inStream)));
-		Map<String, CommandTypeInfo> commandTypes;
-		this.commandScanner = new CommandScanner(commandTypes, new BufferedReader(new InputStreamReader(inStream)));
+		commandTypes = new HashMap<String, CommandTypeInfo>();
+		addCommandTypes(this);
+		addCommandTypes(commandClasses);
+		this.commandScanner = new CommandScanner(commandTypes,
+				new BufferedReader(new InputStreamReader(inStream)));
 	}
 
-	public void startLoop() {
-		CommandDescriptor cd = new CommandDescriptor();
+	@AsCommand(command = "help", feedback = "List of Avalable commands:", helpText = " * show list of avalable commands")
+	public String getHelp() {
+		String n = System.getProperty("line.separator");
+		StringBuilder out = new StringBuilder();
+		out.append(n);
+		commandTypes.forEach((str, type) -> out.append(str + " "
+				+ type.getHelpText() + n));
 
-		while (true) { // the loop over all commands with one input
-						// line for every command
+		return out.toString();
+	}
 
-			try {
-				commandScanner.inputLine2CommandDescriptor(cd);
-			} catch (IOException e) {
-				shellOut.println("Reading the command Faied, try again");
-				continue;
-			}
-			
-			
-			if (!cd.isValid()) {
-				if (cd.getCommandType() == null) {
-					shellOut.println("Unknown command. Type 'help' for a list of commands");
-				} else {
-					shellOut.println("Could not read command: " );
-					shellOut.println(cd.getCommandType().getName() + " "
-							+ cd.getCommandType().getHelpText());
+	private void addCommandTypes(Object... commandClasses) {
+
+		for (Object obj : commandClasses) {
+			for (Method m : obj.getClass().getMethods()) {// [1].getAnnotationsByType(AsCommand.class);
+				System.out.println(m.getAnnotationsByType(AsCommand.class).length + " " + m.getName());
+				for (AsCommand com : m.getAnnotationsByType(AsCommand.class)) {
+					if (commandTypes.get(com.command()) != null)
+						throw new CommandNameException(
+								"Commandname already taken");
+					commandTypes.put(
+							com.command(),
+							new CommandType(com.command(), obj, m, m
+									.getParameterTypes(), com.helpText(), com
+									.feedback()));
 				}
-				continue;
 			}
-			
-			
-			try {
-				String message = cd.execute(am);
-				if(message != null)
-					shellOut.println(message);
-					
-				if(cd.getCommandType().getExeResult() == ExeResult.EXIT) {
-					break;
-				} else if(cd.getCommandType().getExeResult() == ExeResult.HELP) {
-					for(StockGameCommandType c : StockGameCommandType.values()) {
-						shellOut.println(c.getName() + c.getHelpText());
-					}
-				}
-				
-			} catch (UnknownShareException e) {
-				shellOut.println("Unknown share: " + e.getShareName());
-			} catch (UnknownPlayerException e) {
-				shellOut.println("Player " + e.getMessage()
-						+ " does not exist.");
-			} catch (NotEnoughMoneyException e) {
-				shellOut.println("Not enough money, "
-						+ e.getMissingMoney() + " missing.");
-			} catch (PlayerAlreadyExistsException e) {
-				shellOut.println("Player " + e.getMessage() + " already exists");
-			}
+
 		}
+	}
+
+	public void readCommand() {
+		CommandDescriptor cd = new CommandDescriptor();
+		try {
+			commandScanner.inputLine2CommandDescriptor(cd);
+		} catch (CommandParseException e) {
+			shellOut.println(e.getMessage());
+			return;
+		}
+		shellOut.println(cd.execute());
 	}
 }

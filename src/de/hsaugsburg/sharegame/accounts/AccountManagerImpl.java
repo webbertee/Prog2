@@ -1,11 +1,15 @@
 package de.hsaugsburg.sharegame.accounts;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import de.hsaugsburg.commands.AsCommand;
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 import de.hsaugsburg.sharegame.accounts.exceptions.UnknownPlayerException;
 import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.shares.StockPriceProvider;
+import de.hsaugsburg.sharegame.shares.exceptions.UnknownShareException;
 
 public class AccountManagerImpl extends AccountManager {
 
@@ -13,10 +17,12 @@ public class AccountManagerImpl extends AccountManager {
 	private final int SIZE = 32;
 	private int playerCount = 0;
 	private StockPriceProvider priceProvider;
+	private Logger logger;
 	
 	public AccountManagerImpl(StockPriceProvider priceProvider) {
 		players = new Player[SIZE];
 		this.priceProvider = priceProvider;
+		logger = Logger.getLogger(this.getClass().getName());
 	}
 	
 	
@@ -33,7 +39,14 @@ public class AccountManagerImpl extends AccountManager {
 	@Override
 	@AsCommand(command = "buys", helpText = "<playername> <sharename> <count> * buy a amout of shares", feedback = "shares successfully purchased")
 	public void buyShare(String playerName, String shareName, int count) throws NotEnoughMoneyException {
-		getPlayer(playerName).buyShare(priceProvider.getShare(shareName), count);
+		logger.log(Level.FINEST, "Attemting to buy " + count + " " + shareName + " shares for " + playerName);
+		try {
+			getPlayer(playerName).buyShare(priceProvider.getShare(shareName), count);
+		} catch(RuntimeException e) {
+			logger.log(Level.WARNING, "Buying a share failed", e);
+			throw e;
+		}
+		logger.log(Level.INFO, "Player " + playerName + " bought " + count + " " + shareName + " shares");
 	}
 
 	@Override

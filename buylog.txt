@@ -1,0 +1,23 @@
+Mai 10, 2015 3:32:26 PM de.hsaugsburg.sharegame.tests.LoggingTest main
+SCHWERWIEGEND: Logging works
+Mai 10, 2015 3:32:45 PM de.hsaugsburg.sharegame.accounts.AccountManagerImpl buyShare
+AM FEINSTEN: Attemting to buy 10 Audi shares for webber
+Mai 10, 2015 3:32:45 PM de.hsaugsburg.sharegame.accounts.AccountManagerImpl buyShare
+INFORMATION: Player webber bought 10 Audi shares
+Mai 10, 2015 3:32:51 PM de.hsaugsburg.sharegame.accounts.AccountManagerImpl buyShare
+AM FEINSTEN: Attemting to buy 1000 Audi shares for webber
+Mai 10, 2015 3:32:51 PM de.hsaugsburg.sharegame.accounts.AccountManagerImpl buyShare
+WARNUNG: Buying a share failed
+de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException
+	at de.hsaugsburg.sharegame.assets.CashAccount.remove(CashAccount.java:19)
+	at de.hsaugsburg.sharegame.accounts.Player.buyShare(Player.java:37)
+	at de.hsaugsburg.sharegame.accounts.AccountManagerImpl.buyShare(AccountManagerImpl.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at de.hsaugsburg.commands.CommandDescriptor.execute(CommandDescriptor.java:34)
+	at de.hsaugsburg.commands.CommandProcessor.readCommand(CommandProcessor.java:71)
+	at de.hsaugsburg.sharegame.commands.StockGameCommandProcessor.start(StockGameCommandProcessor.java:34)
+	at de.hsaugsburg.sharegame.tests.LoggingTest.main(LoggingTest.java:28)
+

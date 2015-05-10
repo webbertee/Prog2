@@ -1,5 +1,8 @@
 package de.hsaugsburg.sharegame.tests;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import de.hsaugsburg.sharegame.accounts.AccountManager;
 import de.hsaugsburg.sharegame.accounts.AccountManagerImpl;
 import de.hsaugsburg.sharegame.assets.Share;
@@ -17,7 +20,8 @@ public class LoggingTest {
 		StockPriceProvider provider;
 		provider = new RandomStockPriceProvider(shares, 1000, 1, 1000);
 		AccountManager am = new AccountManagerImpl(provider);
-
+		
+		Logger.getLogger(LoggingTest.class.getName()).log(Level.SEVERE, "Logging works");
 		
 		StockGameCommandProcessor processor = new StockGameCommandProcessor(
 				System.in, System.out, am, provider);

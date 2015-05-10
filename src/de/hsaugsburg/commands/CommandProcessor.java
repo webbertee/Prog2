@@ -44,8 +44,7 @@ public class CommandProcessor {
 	private void addCommandTypes(Object... commandClasses) {
 
 		for (Object obj : commandClasses) {
-			for (Method m : obj.getClass().getMethods()) {// [1].getAnnotationsByType(AsCommand.class);
-				System.out.println(m.getAnnotationsByType(AsCommand.class).length + " " + m.getName());
+			for (Method m : obj.getClass().getMethods()) {
 				for (AsCommand com : m.getAnnotationsByType(AsCommand.class)) {
 					if (commandTypes.get(com.command()) != null)
 						throw new CommandNameException(

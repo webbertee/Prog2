@@ -31,7 +31,7 @@ public class CommandDescriptor {
 	public String execute() {
 		String message = commandType.getFeedback();
 		try {
-			String result = (String) commandType.getMethod().invoke(commandType.getTarget(), params);
+			Object result = commandType.getMethod().invoke(commandType.getTarget(), params);
 			if(result != null) 
 				message += result;
 		} catch (IllegalAccessException e) {

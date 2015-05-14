@@ -25,6 +25,7 @@ public class CashAccount extends Asset {
 
 	public String toString() {
 		return "CashAccount " + this.getName() + " with Value " + getValue();
+		
 	}
 
 	/**

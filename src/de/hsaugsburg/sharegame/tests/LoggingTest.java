@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import de.hsaugsburg.sharegame.accounts.AccountManager;
 import de.hsaugsburg.sharegame.accounts.AccountManagerImpl;
+import de.hsaugsburg.sharegame.accounts.LoggedAccountManager;
 import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.commands.StockGameCommandProcessor;
 import de.hsaugsburg.sharegame.shares.RandomStockPriceProvider;
@@ -19,12 +20,17 @@ public class LoggingTest {
 		
 		StockPriceProvider provider;
 		provider = new RandomStockPriceProvider(shares, 1000, 1, 1000);
-		AccountManager am = new AccountManagerImpl(provider);
+		AccountManager am = new LoggedAccountManager(provider);
 		
-		Logger.getLogger(LoggingTest.class.getName()).log(Level.SEVERE, "Logging works");
 		
 		StockGameCommandProcessor processor = new StockGameCommandProcessor(
 				System.in, System.out, am, provider);
+		
+		am.addPlayer("player", 10000000);
+		am.buyShare("player", "Audi", 1);
+		am.buyShare("player", "Audi", 1000);
+		
+		
 		processor.start();
 	}
 }

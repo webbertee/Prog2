@@ -3,14 +3,14 @@ package de.hsaugsburg.sharegame.accounts;
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 
-public abstract class AccountManager {
+public interface AccountManager {
 
 	/**
 	 * 
 	 * @param name
 	 * @throws PlayerAlreadyExistsException
 	 */
-	public abstract void addPlayer(String name, long cash);
+	 void addPlayer(String name, long cash);
 
 	/**
 	 * 
@@ -20,7 +20,7 @@ public abstract class AccountManager {
 	 * @throws NotEnoughMoneyException
 	 * @throws UnknownShareException
 	 */
-	public abstract void buyShare(String playerName, String shareName, int count)
+	 void buyShare(String playerName, String shareName, int count)
 			throws NotEnoughMoneyException;
 
 	/**
@@ -30,34 +30,34 @@ public abstract class AccountManager {
 	 * @param count
 	 * @throws UnknownShareException
 	 */
-	public abstract void sellShare(String playerName, String shareName, int count);
+	 void sellShare(String playerName, String shareName, int count);
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public abstract long getPlayerDepositValue(String name);
+	 long getPlayerDepositValue(String name);
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public abstract long getPlayerCashValue(String name);
+	 long getPlayerCashValue(String name);
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public abstract long getPlayerAssetValue(String name);
+	 long getPlayerAssetValue(String name);
 
-	public abstract int getPlayerSharesCount(String name, String shareName);
+	 int getPlayerSharesCount(String name, String shareName);
 
-	public abstract long getPlayerSharesValue(String name, String shareName);
+	 long getPlayerSharesValue(String name, String shareName);
 
-	public abstract long getPlayerSharesProfit(String name, String shareName);
+	 long getPlayerSharesProfit(String name, String shareName);
 
-	public abstract void addBot(String name, long intervall);
+	 void addBot(String name, long intervall);
 
-	public abstract void removeBot(String name);
+	 void removeBot(String name);
 
 }

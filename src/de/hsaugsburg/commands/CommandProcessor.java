@@ -53,7 +53,7 @@ public class CommandProcessor {
 							com.command(),
 							new CommandType(com.command(), obj, m, m
 									.getParameterTypes(), com.helpText(), com
-									.feedback()));
+									.feedback(), com.currencyFormat()));
 				}
 			}
 

@@ -13,4 +13,5 @@ public @interface AsCommand {
 	String command();
 	String helpText();
 	String feedback();
+	String currencyFormat() default "";
 }

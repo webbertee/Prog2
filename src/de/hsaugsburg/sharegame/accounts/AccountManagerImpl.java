@@ -17,6 +17,7 @@ public class AccountManagerImpl implements AccountManager {
 	private final int SIZE = 32;
 	private int playerCount = 0;
 	private StockPriceProvider priceProvider;
+	private final String CFORMAT = "#0.00€";
 	
 	public AccountManagerImpl(StockPriceProvider priceProvider) {
 		players = new Player[SIZE];
@@ -47,19 +48,19 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	@AsCommand(command = "sdv", helpText = "<name> * get the value of the players share deposit", feedback = "Value of all Shares: ")
+	@AsCommand(command = "sdv", helpText = "<name> * get the value of the players share deposit", feedback = "Value of all Shares: ",currencyFormat = CFORMAT)
 	public long getPlayerDepositValue(String name) {
 		return getPlayer(name).getDepositValue();
 	}
 
 	@Override
-	@AsCommand(command = "scv", helpText = "<name> * show players remaining cash", feedback = "Cash left: ")
+	@AsCommand(command = "scv", helpText = "<name> * show players remaining cash", feedback = "Cash left: ",currencyFormat = CFORMAT)
 	public long getPlayerCashValue(String name) {
 		return getPlayer(name).getCashValue();
 	}
 
 	@Override
-	@AsCommand(command = "sav", helpText = "<name> * show the sum of a players assets", feedback = "Sum of players assets: ")
+	@AsCommand(command = "sav", helpText = "<name> * show the sum of a players assets", feedback = "Sum of players assets: ",currencyFormat = CFORMAT)
 	public long getPlayerAssetValue(String name) {
 		Player p = getPlayer(name);
 		return p.getCashValue() + p.getDepositValue();
@@ -73,13 +74,13 @@ public class AccountManagerImpl implements AccountManager {
 
 
 	@Override
-	@AsCommand(command = "sps", helpText = "<name> <shareName> * show value of a players collection of shares", feedback ="Value of Shares:")
+	@AsCommand(command = "sps", helpText = "<name> <shareName> * show value of a players collection of shares", feedback ="Value of Shares:",currencyFormat = CFORMAT)
 	public long getPlayerSharesValue(String name, String shareName) {
 		return getPlayer(name).getSharesValue(priceProvider.getShare(shareName));
 	}
 	
 	@Override
-	@AsCommand(command = "ssp", helpText = "<name> <shareName> * show profit made by a specific share", feedback = "Current Profit: ")
+	@AsCommand(command = "ssp", helpText = "<name> <shareName> * show profit made by a specific share", feedback = "Current Profit: ",currencyFormat = CFORMAT)
 	public long getPlayerSharesProfit(String name, String shareName) {
 		Player p = getPlayer(name);
 		Share s = priceProvider.getShare(shareName);

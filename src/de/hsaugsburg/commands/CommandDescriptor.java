@@ -2,6 +2,7 @@ package de.hsaugsburg.commands;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
 
 import de.hsaugsburg.commands.exceptions.UnsopportedParameterException;
 
@@ -32,8 +33,12 @@ public class CommandDescriptor {
 		String message = commandType.getFeedback();
 		try {
 			Object result = commandType.getMethod().invoke(commandType.getTarget(), params);
-			if(result != null) 
+			if(result != null)  {
+				if(!commandType.getCurrencyFormat().equals("")) {
+					result = new DecimalFormat(commandType.getCurrencyFormat()).format(((Number) result).doubleValue()/100);
+				}
 				message += result;
+			}
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 			message = "An Internal Error occured";

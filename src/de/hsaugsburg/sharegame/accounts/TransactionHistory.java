@@ -13,8 +13,8 @@ public class TransactionHistory {
 		history = new ArrayList<Transaction>();
 	}
 	
-	public void addTransaction(Transaction.Type type, String purpose, String parcipiant, Date date) {
-		history.add(new Transaction(owner, type, purpose, parcipiant, date));
+	public void addTransaction(Transaction.Type type, long amount, String purpose, String parcipiant, Date date) {
+		history.add(new Transaction(owner, type,amount, purpose, parcipiant, date));
 	}
 	
 	@Override

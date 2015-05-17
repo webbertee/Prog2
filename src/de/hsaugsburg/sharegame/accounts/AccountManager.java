@@ -59,5 +59,7 @@ public interface AccountManager {
 	 void addBot(String name, long intervall);
 
 	 void removeBot(String name);
+	 
+	 String getHistory(String name);
 
 }

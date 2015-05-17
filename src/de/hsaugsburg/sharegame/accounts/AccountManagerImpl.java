@@ -116,5 +116,12 @@ public class AccountManagerImpl implements AccountManager {
 		getPlayer(name).removeBot();
 	}
 
+
+	@Override
+	@AsCommand(command = "his", helpText = "<name> * get Players transaction history", feedback =  "")
+	public String getHistory(String name) {
+		return getPlayer(name).getHistory();
+	}
+
 	
 }

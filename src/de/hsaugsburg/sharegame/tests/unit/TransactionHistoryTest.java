@@ -24,7 +24,7 @@ public class TransactionHistoryTest {
 
 	@Test
 	public void testToString() {
-		th.addTransaction(Type.CREDIT, "testing a credit", "test2", new Date());
+		th.addTransaction(Type.CREDIT, 1000L,"testing a credit", "test2", new Date());
 		//th.addTransaction(Type.DEBIT, "testing a debit", "test2", new Date());
 		String str = th.toString();
 		System.out.println(str);

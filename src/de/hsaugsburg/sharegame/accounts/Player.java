@@ -1,5 +1,8 @@
 package de.hsaugsburg.sharegame.accounts;
 
+import java.util.Date;
+
+import de.hsaugsburg.sharegame.accounts.Transaction.Type;
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsaugsburg.sharegame.agent.SimpleAgent;
 import de.hsaugsburg.sharegame.assets.CashAccount;
@@ -12,6 +15,7 @@ public class Player {
 	private ShareDepositAccount shareDepositAccount;
 	private String name;
 	private SimpleAgent bot;
+	private TransactionHistory history;
 
 	/**
 	 * 
@@ -21,6 +25,7 @@ public class Player {
 		this.name = name;
 		cashAccount = new CashAccount(name + "_cash", cash);
 		shareDepositAccount = new ShareDepositAccount(name + "_shares");
+		history = new TransactionHistory(name);
 	}
 	
 	public String getName() {
@@ -34,8 +39,11 @@ public class Player {
 	 * @throws NotEnoughMoneyException 
 	 */
 	public void buyShare(Share share, int count) throws NotEnoughMoneyException {
-		cashAccount.remove(share.getValue() * count);
+		long amount = share.getValue() * count;
+		cashAccount.remove(amount);
 		shareDepositAccount.addShare(share, count);
+		history.addTransaction(Type.DEBIT, amount, "purchase of " + count + " " + share.getName() + " shares",
+				"market", new Date());
 	}
 	
 	public void addBot(StockPriceProvider spp, long intervall) {
@@ -58,7 +66,10 @@ public class Player {
 	 */
 	public void sellShare(Share share, int count) {
 		shareDepositAccount.removeShare(share, count);
-		cashAccount.add(share.getValue() * count);
+		long amount = share.getValue() * count;
+		cashAccount.add(amount);
+		history.addTransaction(Type.CREDIT, amount, "selling " + count + " " + share.getName() + " shares",
+				"market", new Date());
 	}
 
 	public long getCashValue() {
@@ -79,6 +90,10 @@ public class Player {
 
 	public long getSharesBuyValue(Share share) {
 		return shareDepositAccount.getSharesBuyValue(share);
+	}
+	
+	public String getHistory() {
+		return history.toString();
 	}
 
 }

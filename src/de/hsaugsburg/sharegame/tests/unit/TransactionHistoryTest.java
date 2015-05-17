@@ -24,11 +24,14 @@ public class TransactionHistoryTest {
 
 	@Test
 	public void testToString() {
-		th.addTransaction(Type.CREDIT, 1000L,"testing a credit", "test2", new Date());
-		//th.addTransaction(Type.DEBIT, "testing a debit", "test2", new Date());
-		String str = th.toString();
-		System.out.println(str);
-		assertTrue("toString", str.length() > 0);
+		th.addTransaction(Type.CREDIT, 1000L,"B",1, "test2", new Date());
+		th.addTransaction(Type.CREDIT, 1000L,"A",1, "test2", new Date());
+		System.out.println(th.listByShares());
+		System.out.println();
+		System.out.println(th.listByTime());
+		System.out.println();
+		System.out.println(th.listShare("A"));
+		assertTrue("toString", true);
 	
 	
 	}

@@ -41,7 +41,7 @@ public class Share {
 		
 		if (share instanceof Share) {
 			Share other = (Share) share;
-			if (other.name.equals(name) && other.value == value) {
+			if (other.name.equals(name)) {
 				return true;
 			}
 		}

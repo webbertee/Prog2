@@ -42,7 +42,7 @@ public class Player {
 		long amount = share.getValue() * count;
 		cashAccount.remove(amount);
 		shareDepositAccount.addShare(share, count);
-		history.addTransaction(Type.DEBIT, amount, "purchase of " + count + " " + share.getName() + " shares",
+		history.addTransaction(Type.DEBIT, amount, share.getName(), count,
 				"market", new Date());
 	}
 	
@@ -68,7 +68,7 @@ public class Player {
 		shareDepositAccount.removeShare(share, count);
 		long amount = share.getValue() * count;
 		cashAccount.add(amount);
-		history.addTransaction(Type.CREDIT, amount, "selling " + count + " " + share.getName() + " shares",
+		history.addTransaction(Type.CREDIT, amount, share.getName(), count,
 				"market", new Date());
 	}
 
@@ -92,8 +92,16 @@ public class Player {
 		return shareDepositAccount.getSharesBuyValue(share);
 	}
 	
-	public String getHistory() {
-		return history.toString();
+	public String getHistoryByTime() {
+		return history.listByTime();
+	}
+	
+	public String getHistoryByShares() {
+		return history.listByShares();
+	}
+	
+	public String getShareHistory(String name) {
+		return history.listShare(name);
 	}
 
 }

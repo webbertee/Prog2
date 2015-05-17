@@ -7,23 +7,25 @@ import java.util.Date;
 public class Transaction {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-	private static final DecimalFormat df = new DecimalFormat("#0.00€");
+	private static final DecimalFormat df = new DecimalFormat("#.00€");
 	
 	private final String owner;
 	public enum Type{CREDIT, DEBIT};
 	private final Type type;
-	private final String purpose;
+	private final String share;
+	private final int count;
 	private final String participant;
 	private final Date date;
 	private final long amount;
 
 	
-	public Transaction(String owner, Type type, long amount, String purpose, String participant,
+	public Transaction(String owner, Type type, long amount, String share, int count, String participant,
 			Date date) {
 		this.owner = owner;
 		this.type = type;
 		this.amount = amount;
-		this.purpose = purpose;
+		this.count = count;
+		this.share = share;
 		this.participant = participant;
 		this.date = date;
 		
@@ -37,8 +39,8 @@ public class Transaction {
 		return type;
 	}
 
-	public String getPurpose() {
-		return purpose;
+	public String getShare() {
+		return share;
 	}
 
 	public String getParticipant() {
@@ -53,13 +55,13 @@ public class Transaction {
 	public String toString() {
 		StringBuffer str = new StringBuffer();
 		str.append(sdf.format(date) + ": ");
-		str.append(df.format(amount/100) + " ");
+		str.append(df.format(amount/100.0) + " ");
 		if(type == Type.CREDIT) {
 			str.append(participant + " -> " + owner);
 		} else {
 			str.append(owner + " -> " + participant);
 		}
-		str.append(": " + purpose);
+		str.append(": " + share);
 		
 		return str.toString();
 	}

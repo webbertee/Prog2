@@ -1,12 +1,8 @@
-Mai 11, 2015 4:08:51 PM de.hsaugsburg.sharegame.tests.DebugHandler invoke
-FEIN: calling method addPlayer with params  player 10000000
-Mai 11, 2015 4:08:51 PM de.hsaugsburg.sharegame.tests.DebugHandler invoke
-INFORMATION: Accountmanager.addPlayer called
-Mai 11, 2015 4:08:51 PM de.hsaugsburg.sharegame.tests.DebugHandler invoke
-FEIN: calling method buyShare with params  player Audi 1
-Mai 11, 2015 4:08:51 PM de.hsaugsburg.sharegame.tests.DebugHandler invoke
-INFORMATION: Accountmanager.buyShare called
-Mai 11, 2015 4:08:51 PM de.hsaugsburg.sharegame.tests.DebugHandler invoke
-FEIN: calling method buyShare with params  player Audi 1000
-Mai 11, 2015 4:08:51 PM de.hsaugsburg.sharegame.tests.DebugHandler invoke
-INFORMATION: Accountmanager.buyShare called
+Mai 18, 2015 12:54:10 AM de.hsaugsburg.sharegame.accounts.AccountManagerImpl buyShare
+INFORMATION: Player webber bought 1 SpaceX shares
+Mai 18, 2015 12:54:18 AM de.hsaugsburg.sharegame.accounts.AccountManagerImpl buyShare
+INFORMATION: Player webber bought 1 Audi shares
+Mai 18, 2015 12:54:34 AM de.hsaugsburg.sharegame.accounts.AccountManagerImpl buyShare
+INFORMATION: Player webber bought 1 Boing shares
+Mai 18, 2015 12:55:52 AM de.hsaugsburg.sharegame.accounts.AccountManagerImpl buyShare
+INFORMATION: Player webber bought 1 Boing shares

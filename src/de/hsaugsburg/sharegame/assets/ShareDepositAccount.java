@@ -2,12 +2,15 @@ package de.hsaugsburg.sharegame.assets;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import de.hsaugsburg.sharegame.assets.exceptions.RemoveShareException;
 
 public class ShareDepositAccount extends Asset {
 
 	private Map<String, ShareItem> shareItems;
+	private Logger logger = Logger.getLogger(ShareDepositAccount.class.getName());
 
 	public ShareDepositAccount(String name) {
 		super(name);
@@ -54,6 +57,7 @@ public class ShareDepositAccount extends Asset {
 		// suche Entsprechendes Paket im Array
 		ShareItem sa = shareItems.get(share.getName());
 		if (sa == null) {
+			logger.log(Level.FINEST, "Added a new ShareItem: " + share.getName());
 			sa = new ShareItem(share, super.getName() + "_" + share.getName());
 			shareItems.put(share.getName(), sa);
 		}
@@ -74,8 +78,6 @@ public class ShareDepositAccount extends Asset {
 		if (sa.getCount() < count)
 			throw new RemoveShareException("Only " + sa.getCount() + " "
 					+ share.getName() + " shares remaining");
-
-		sa.remove(count);
 	}
 
 	public int getSharesCount(Share share) {

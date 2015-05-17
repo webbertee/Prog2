@@ -2,7 +2,9 @@ package de.hsaugsburg.sharegame.shares;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TimerTask;
+import java.util.TreeMap;
 
 import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.shares.exceptions.ShareAlreadyExistsException;
@@ -14,11 +16,11 @@ import de.hsaugsburg.sharegame.timer.SingleTimer;
  * the rates should be updated periodically.
  */
 public abstract class StockPriceProvider implements StockPriceInfo {
-	private final Map<String,Share> shares;
+	private final SortedMap<String,Share> shares;
 	
 	
 	public StockPriceProvider(Share[] shares) {
-		this.shares = new HashMap<String,Share>();
+		this.shares = new TreeMap<String,Share>();
 		for(Share s : shares)
 			addShare(s);
 	}

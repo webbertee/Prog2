@@ -9,9 +9,8 @@ import de.hsaugsburg.sharegame.shares.StockPriceProvider;
 
 public class UiTest {
 	public static void main(String[] args) {
-		Share[] shares = { new Share("Audi", 10000),
-				new Share("SpaceX", 10500), new Share("Siemens", 20000),
-				new Share("SAP", 12000)};
+		Share[] shares = {new Share("SpaceX", 10500), new Share("Boing", 12000),new Share("Siemens", 20000),
+				new Share("SAP", 12000) , new Share("Audi", 10000)};
 		
 		StockPriceProvider provider;
 		provider = new RandomStockPriceProvider(shares, 1000, 1, 1000);

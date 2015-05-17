@@ -19,6 +19,8 @@ public abstract class StockPriceProvider implements StockPriceInfo {
 	
 	public StockPriceProvider(Share[] shares) {
 		this.shares = new HashMap<String,Share>();
+		for(Share s : shares)
+			addShare(s);
 	}
 
 	@Override
@@ -49,16 +51,19 @@ public abstract class StockPriceProvider implements StockPriceInfo {
 	
 	@Override
 	public String[] getShareNames() {
-		return (String[]) shares.keySet().toArray();
+		String[] arr = new String[shares.keySet().size()];
+		int i = 0;
+		for(String s : shares.keySet())
+			arr[i++] = s;
+		return arr;
 			
 	}
 	
-	public void addShare(String name, long value) {
-		if(shares.get(name) != null ){
-			throw new ShareAlreadyExistsException(name);
+	public void addShare(Share share) {
+		if(shares.get(share.getName()) != null ){
+			throw new ShareAlreadyExistsException(share.getName());
 		}
-		Share share = new Share(name,value);
-		shares.put(name, share);
+		shares.put(share.getName(), share);
 		updateShareRate(share);
 	}
 	

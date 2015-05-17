@@ -5,40 +5,41 @@ import java.util.Map;
 
 import de.hsaugsburg.sharegame.assets.exceptions.RemoveShareException;
 
-public class ShareDepositAccount extends Asset{
+public class ShareDepositAccount extends Asset {
 
 	private Map<String, ShareItem> shareItems;
-	
+
 	public ShareDepositAccount(String name) {
 		super(name);
-		
-		//shareItems = new ShareItem[DEFAUT_LENGTH];
-		//Alternativ
-		shareItems = new HashMap<String,ShareItem>();
+
+		// shareItems = new ShareItem[DEFAUT_LENGTH];
+		// Alternativ
+		shareItems = new HashMap<String, ShareItem>();
 	}
 
 	public String toString() {
 		return "ShareDepositAccount with " + shareItems.size() + " ShareItems";
 	}
-	
+
 	public int getShareCount(Share share) {
 		ShareItem sa = shareItems.get(share.getName());
-		if(sa == null)
+		if (sa == null)
 			return 0;
 		else
 			return sa.getCount();
 	}
-	
+
 	public long getValue() {
 		long value = 0;
-		for(ShareItem sa : shareItems.values()){
+		for (ShareItem sa : shareItems.values()) {
 			value += sa.getValue();
 		}
 		return value;
 	}
+
 	public long getBuyValue() {
 		long value = 0;
-		for(ShareItem sa : shareItems.values()){
+		for (ShareItem sa : shareItems.values()) {
 			value += sa.getBuyValue();
 		}
 		return value;
@@ -66,26 +67,39 @@ public class ShareDepositAccount extends Asset{
 	 */
 	public void removeShare(Share share, int count) {
 		ShareItem sa = shareItems.get(share.getName());
-	
+
 		if (sa == null)
-			throw new RemoveShareException("No " + share.getName() + " shares in " + this.toString());
-		if(sa.getCount() < count)
-			throw new RemoveShareException("Only " + sa.getCount() + " " + share.getName() + " shares remaining");
-		
+			throw new RemoveShareException("No " + share.getName()
+					+ " shares in " + this.toString());
+		if (sa.getCount() < count)
+			throw new RemoveShareException("Only " + sa.getCount() + " "
+					+ share.getName() + " shares remaining");
+
 		sa.remove(count);
 	}
 
 	public int getSharesCount(Share share) {
-		return shareItems.get(share.getName()).getCount();
-		
+		ShareItem sa = shareItems.get(share.getName());
+		if (sa == null)
+			return 0;
+		else
+			return shareItems.get(share.getName()).getCount();
+
 	}
 
 	public long getSharesValue(Share share) {
-
-		return shareItems.get(share.getName()).getValue();
+		ShareItem sa = shareItems.get(share.getName());
+		if (sa == null)
+			return 0;
+		else
+			return shareItems.get(share.getName()).getValue();
 	}
 
 	public long getSharesBuyValue(Share share) {
-		return shareItems.get(share.getName()).getBuyValue();
+		ShareItem sa = shareItems.get(share.getName());
+		if (sa == null)
+			return 0;
+		else
+			return shareItems.get(share.getName()).getBuyValue();
 	}
 }

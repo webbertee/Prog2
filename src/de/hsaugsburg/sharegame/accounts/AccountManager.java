@@ -61,5 +61,7 @@ public interface AccountManager {
 	 void removeBot(String name);
 	 
 	 String getHistory(String name);
+	 
+	 boolean playerExists(String name);
 
 }

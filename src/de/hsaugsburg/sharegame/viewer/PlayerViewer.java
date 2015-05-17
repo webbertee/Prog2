@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 
 import de.hsaugsburg.sharegame.accounts.AccountManager;
 import de.hsaugsburg.sharegame.accounts.Player;
+import de.hsaugsburg.sharegame.accounts.exceptions.UnknownPlayerException;
 import de.hsaugsburg.sharegame.shares.StockPriceInfo;
 import de.hsaugsburg.sharegame.shares.exceptions.UnknownShareException;
 import de.hsaugsburg.sharegame.timer.SingleTimer;
@@ -24,6 +25,8 @@ public class PlayerViewer extends JFrame {
 
 	public PlayerViewer(String player, AccountManager am, StockPriceInfo pInfo) {
 		this.player = player;
+		if(!am.playerExists(player)) 
+			throw new UnknownPlayerException(player);
 		this.am = am;
 		this.pInfo = pInfo;
 		clockLabel = new JLabel("loading...");
@@ -63,7 +66,7 @@ public class PlayerViewer extends JFrame {
 				buffer.append(am.getPlayerSharesCount(player, s));
 				buffer.append("</td></tr>");
 			}
-			buffer.append("Cash: " + df.format(am.getPlayerCashValue(player)/100));
+			buffer.append("Cash: " + df.format(am.getPlayerCashValue(player)/100) + "<br>");
 			buffer.append("Asset value: " + df.format(am.getPlayerAssetValue(player)));
 			buffer.append("</table>");
 			// --------------------

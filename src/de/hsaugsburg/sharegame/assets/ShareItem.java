@@ -37,9 +37,12 @@ public class ShareItem extends Asset {
 	 * 
 	 * @param count
 	 */
-	public void remove(int count) { 
-		if(count < 1)
-			throw new IllegalArgumentException("count must be > 0");
+	public void remove(int count) {
+		if(count == 0)
+			return;
+		
+		if(count < 0)
+			throw new IllegalArgumentException("count must be >= 0");
 		
 		if(count > this.count)
 			throw new  IllegalStateException("Can not sell "+count+" shares, only "+this.count+"left"); 

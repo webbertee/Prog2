@@ -113,4 +113,10 @@ public class AccountManagerImpl implements AccountManager {
 	public String getHistory(String name) {
 		return getPlayer(name).getHistory();
 	}
+
+
+	@Override
+	public boolean playerExists(String name) {
+		return (players.containsKey(name));
+	}
 }

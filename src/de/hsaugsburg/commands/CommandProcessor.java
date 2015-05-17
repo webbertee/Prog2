@@ -30,7 +30,7 @@ public class CommandProcessor {
 				new BufferedReader(new InputStreamReader(inStream)));
 	}
 
-	@AsCommand(command = "help", feedback = "List of Avalable commands:", helpText = " * show list of avalable commands")
+	@AsCommand(command = "help", feedback = "List of Avalable commands:", helpText = "* show list of avalable commands")
 	public String getHelp() {
 		String n = System.getProperty("line.separator");
 		StringBuilder out = new StringBuilder();

@@ -1,7 +1,6 @@
 package de.hsaugsburg.commands;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 
 import de.hsaugsburg.commands.exceptions.UnsopportedParameterException;
@@ -9,7 +8,6 @@ import de.hsaugsburg.commands.exceptions.UnsopportedParameterException;
 public class CommandDescriptor {
 	private CommandTypeInfo commandType;
 	private Object[] params;
-	private boolean valid;
 
 	// Commandscanner verwaltet die Daten des commanddescriptors->design?
 

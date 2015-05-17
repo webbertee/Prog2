@@ -1,5 +1,7 @@
 package de.hsaugsburg.sharegame.accounts;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,18 +11,15 @@ import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 import de.hsaugsburg.sharegame.accounts.exceptions.UnknownPlayerException;
 import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.shares.StockPriceProvider;
-import de.hsaugsburg.sharegame.shares.exceptions.UnknownShareException;
 
 public class AccountManagerImpl implements AccountManager {
 
-	private Player[] players;
-	private final int SIZE = 32;
-	private int playerCount = 0;
+	private Map<String,Player> players;
 	private StockPriceProvider priceProvider;
 	private final String CFORMAT = "#0.00€";
 	
 	public AccountManagerImpl(StockPriceProvider priceProvider) {
-		players = new Player[SIZE];
+		players = new HashMap<String,Player>();
 		this.priceProvider = priceProvider;
 	}
 	
@@ -28,11 +27,10 @@ public class AccountManagerImpl implements AccountManager {
 	@Override
 	@AsCommand(command = "crp", helpText = "<name> <money> * create a new player by name", feedback = "Player created")
 	public void addPlayer(String name, long cash) throws PlayerAlreadyExistsException {
-		if(getPlayerIndex(name) >= 0)
+		if(players.get(name) != null)
 			throw new PlayerAlreadyExistsException(name);
 		
-		players[playerCount] = new Player(name, cash);
-		playerCount++;
+		players.put(name,new Player(name, cash));
 	}
 
 	@Override
@@ -87,19 +85,12 @@ public class AccountManagerImpl implements AccountManager {
 		return p.getSharesValue(s) - p.getSharesBuyValue(s);
 	}	
 	
-	private int getPlayerIndex(String name) {
-		for(int i = 0; i < playerCount; i++) {
-			if(players[i].getName().equals(name)) 
-				return i;
-		}
-		return -1;
-	}
-	
+
 	private Player getPlayer(String name) {
-		int playerI = getPlayerIndex(name);
-		if(playerI < 0)
+		Player player = players.get(name);
+		if(player == null)
 			throw new UnknownPlayerException(name);
-		return players[playerI];
+		return player;
 	}
 
 
@@ -122,6 +113,4 @@ public class AccountManagerImpl implements AccountManager {
 	public String getHistory(String name) {
 		return getPlayer(name).getHistory();
 	}
-
-	
 }

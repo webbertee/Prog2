@@ -1,8 +1,11 @@
 package de.hsaugsburg.sharegame.shares;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimerTask;
 
 import de.hsaugsburg.sharegame.assets.Share;
+import de.hsaugsburg.sharegame.shares.exceptions.ShareAlreadyExistsException;
 import de.hsaugsburg.sharegame.shares.exceptions.UnknownShareException;
 import de.hsaugsburg.sharegame.timer.SingleTimer;
 
@@ -11,11 +14,11 @@ import de.hsaugsburg.sharegame.timer.SingleTimer;
  * the rates should be updated periodically.
  */
 public abstract class StockPriceProvider implements StockPriceInfo {
-	private final Share[] shares;
+	private final Map<String,Share> shares;
 	
 	
 	public StockPriceProvider(Share[] shares) {
-		this.shares = shares;
+		this.shares = new HashMap<String,Share>();
 	}
 
 	@Override
@@ -26,10 +29,7 @@ public abstract class StockPriceProvider implements StockPriceInfo {
 	@Override
 	public String getAllShares() {
 		StringBuilder out = new StringBuilder();
-		for(int i = 0; i < shares.length; i++) {
-			out.append(shares[i].getName() + " " + shares[i].getValue());
-			out.append(", ");
-		}
+		shares.forEach((String str, Share s)->out.append(s.getName() + " " + s.getValue() + ", "));
 		return out.toString();
 	}
 	
@@ -42,32 +42,30 @@ public abstract class StockPriceProvider implements StockPriceInfo {
 	}
 	
 	protected final void updateShareRates() {
-		for(Share s : shares)
-			updateShareRate(s);
+		shares.forEach((String str, Share s)->updateShareRate(s));
 	}
 	
 	protected abstract void updateShareRate(Share share);
 	
 	@Override
 	public String[] getShareNames() {
-		String[] out = new String[shares.length];
-		for(int i = 0; i < out.length; i++)
-			out[i] = shares[i].getName();
-		return out;
+		return (String[]) shares.keySet().toArray();
 			
 	}
-	private int getShareIndex(String share) {
-		for(int i = 0; i < shares.length; i++) {
-			if(shares[i].getName().equals(share))
-				return i;
+	
+	public void addShare(String name, long value) {
+		if(shares.get(name) != null ){
+			throw new ShareAlreadyExistsException(name);
 		}
-		return -1;
+		Share share = new Share(name,value);
+		shares.put(name, share);
+		updateShareRate(share);
 	}
 	
 	public Share getShare(String name)  {
-		int shareI = getShareIndex(name);
-		if(shareI < 0)
+		Share share = shares.get(name);
+		if(share == null)
 			throw new UnknownShareException(name);
-		return shares[shareI];	
+		return share;	
 	}
 }

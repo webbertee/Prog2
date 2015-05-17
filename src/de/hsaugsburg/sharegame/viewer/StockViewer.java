@@ -12,13 +12,13 @@ import de.hsaugsburg.sharegame.shares.exceptions.UnknownShareException;
 import de.hsaugsburg.sharegame.timer.SingleTimer;
 
 @SuppressWarnings("serial")
-public class Viewer extends JFrame {
+public class StockViewer extends JFrame {
 	private static final int TICK_PERIOD = 1000;
 	private Timer ticker;
 	private JLabel clockLabel;
 	private StockPriceInfo priceInfo;
 
-	public Viewer(StockPriceInfo priceInfo) {
+	public StockViewer(StockPriceInfo priceInfo) {
 		this.priceInfo = priceInfo;
 		clockLabel = new JLabel("loading...");
 		add("Center", clockLabel);

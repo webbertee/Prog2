@@ -2,7 +2,7 @@ package de.hsaugsburg.sharegame.assets;
 public class ShareItem extends Asset {
 
 	private int count;
-	private long buyValue; //?!?!
+	private long buyValue; 
 	private Share share;
 
 	public long getValue() {
@@ -37,7 +37,7 @@ public class ShareItem extends Asset {
 	 * 
 	 * @param count
 	 */
-	public void remove(int count) { //renamed
+	public void remove(int count) { 
 		if(count < 1)
 			throw new IllegalArgumentException("count must be > 0");
 		
@@ -52,7 +52,7 @@ public class ShareItem extends Asset {
 	 * 
 	 * @param count
 	 */
-	public void add(int count) { //renamed
+	public void add(int count) {
 		if(count < 1)
 			throw new IllegalArgumentException("Count must be > 0");
 		

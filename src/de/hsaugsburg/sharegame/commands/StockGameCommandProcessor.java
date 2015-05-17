@@ -9,6 +9,7 @@ import de.hsaugsburg.sharegame.accounts.AccountManager;
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsaugsburg.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 import de.hsaugsburg.sharegame.accounts.exceptions.UnknownPlayerException;
+import de.hsaugsburg.sharegame.assets.exceptions.RemoveShareException;
 import de.hsaugsburg.sharegame.shares.StockPriceInfo;
 import de.hsaugsburg.sharegame.shares.exceptions.UnknownShareException;
 
@@ -46,7 +47,8 @@ public class StockGameCommandProcessor {
 			} catch (PlayerAlreadyExistsException e) {
 				outStream.println("Player " + e.getMessage()
 						+ " already exists");
-
+			} catch (RemoveShareException e) {
+				outStream.println(e.getMessage());
 			}
 		}
 	}

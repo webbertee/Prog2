@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.assets.ShareDepositAccount;
+import de.hsaugsburg.sharegame.assets.exceptions.RemoveShareException;
 
 public class ShareDepositAccountTest {
 	private ShareDepositAccount sda;
@@ -45,14 +46,10 @@ public class ShareDepositAccountTest {
 		assertEquals(sda.getSharesCount(audi), 0);
 	}
 	
-	@Test
+	@Test(expected=RemoveShareException.class)
 	public void testRemoveShareException() {
-		try {
-			sda.removeShare(audi, 1);
-			fail();
-		} catch(IllegalStateException e) {
-			
-		}
+		sda.removeShare(audi, 1);
+
 	}
 
 	@Test

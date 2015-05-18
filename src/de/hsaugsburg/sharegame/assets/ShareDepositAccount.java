@@ -78,6 +78,8 @@ public class ShareDepositAccount extends Asset {
 		if (sa.getCount() < count)
 			throw new RemoveShareException("Only " + sa.getCount() + " "
 					+ share.getName() + " shares remaining");
+		
+		sa.remove(count);
 	}
 
 	public int getSharesCount(Share share) {

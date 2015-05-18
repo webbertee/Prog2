@@ -2,7 +2,10 @@ package de.hsaugsburg.sharegame.tests.unit;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Array;
 import java.util.Date;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,15 +26,10 @@ public class TransactionHistoryTest {
 	}
 
 	@Test
-	public void testToString() {
-		th.addTransaction(Type.CREDIT, 1000L,"B",1, "test2", new Date());
-		th.addTransaction(Type.CREDIT, 1000L,"A",1, "test2", new Date());
-		System.out.println(th.listByShares());
-		System.out.println();
-		System.out.println(th.listByTime());
-		System.out.println();
-		System.out.println(th.listShare("A"));
-		assertTrue("toString", true);
+	public void testListByTime() {
+		th.addTransaction(Type.CREDIT, 1000L,"Btest",1, "test2", new Date());
+		th.addTransaction(Type.CREDIT, 1000L,"Atest",1, "test2", new Date());
+		
 	
 	
 	}

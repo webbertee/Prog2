@@ -28,7 +28,6 @@ public class Transaction {
 		this.share = share;
 		this.participant = participant;
 		this.date = date;
-		
 	}
 
 	public long getAmount() {
@@ -61,7 +60,7 @@ public class Transaction {
 		} else {
 			str.append(owner + " -> " + participant);
 		}
-		str.append(": " + share);
+		str.append(": " + count + " " + share);
 		
 		return str.toString();
 	}

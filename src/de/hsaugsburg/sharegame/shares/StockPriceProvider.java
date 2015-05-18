@@ -1,7 +1,5 @@
 package de.hsaugsburg.sharegame.shares;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.SortedMap;
 import java.util.TimerTask;
 import java.util.TreeMap;

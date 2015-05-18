@@ -44,7 +44,7 @@ public class SimpleAgent {
 				for(String shareName : shares) {
 					share = spp.getShare(shareName);
 					count = p.getShareCount(share);
-					if(share.getValue() * count - p.getSharesBuyValue(share) > 0) {
+					if(share.getValue() * count - p.getSharesBuyValue(share) > 0 && count > 0) {
 						p.sellShare(share, count);
 					}
 				}

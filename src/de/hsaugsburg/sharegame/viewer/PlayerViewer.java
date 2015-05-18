@@ -66,8 +66,8 @@ public class PlayerViewer extends JFrame {
 				buffer.append(am.getPlayerSharesCount(player, s));
 				buffer.append("</td></tr>");
 			}
-			buffer.append("Cash: " + df.format(am.getPlayerCashValue(player)/100) + "<br>");
-			buffer.append("Asset value: " + df.format(am.getPlayerAssetValue(player)));
+			buffer.append("Cash: " + df.format(am.getPlayerCashValue(player)/100.0) + "<br>");
+			buffer.append("Deposit value: " + df.format(am.getPlayerDepositValue(player)/100.0));
 			buffer.append("</table>");
 			// --------------------
 			buffer.append("</body></html>");

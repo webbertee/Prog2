@@ -7,46 +7,47 @@ public interface AccountManager {
 
 	/**
 	 * 
-	 * @param name
-	 * @throws PlayerAlreadyExistsException
+	 * @param name The Players name
+	 * @param cash the amount of money in cents
+	 * @throws PlayerAlreadyExistsException if player already exits
 	 */
 	 void addPlayer(String name, long cash);
 
 	/**
 	 * 
-	 * @param playerName
-	 * @param shareName
-	 * @param count
-	 * @throws NotEnoughMoneyException
-	 * @throws UnknownShareException
+	 * @param playerName The players name
+	 * @param shareName The name of the share
+	 * @param count The amount of shares
 	 */
 	 void buyShare(String playerName, String shareName, int count)
 			throws NotEnoughMoneyException;
 
 	/**
 	 * 
-	 * @param playerName
-	 * @param shareName
-	 * @param count
-	 * @throws UnknownShareException
+	 * @param playerName The players name
+	 * @param shareName The name of the share
+	 * @param count The amount of shares
 	 */
 	 void sellShare(String playerName, String shareName, int count);
 
 	/**
 	 * 
-	 * @param name
+	 * @param name The players name
+	 * @return value in cents
 	 */
 	 long getPlayerDepositValue(String name);
 
 	/**
 	 * 
-	 * @param name
+	 * @param name The players name
+	 * @return value in cents
 	 */
 	 long getPlayerCashValue(String name);
 
 	/**
 	 * 
-	 * @param name
+	 * @param name The players name
+	 * @return value of player's assets in cents
 	 */
 	 long getPlayerAssetValue(String name);
 

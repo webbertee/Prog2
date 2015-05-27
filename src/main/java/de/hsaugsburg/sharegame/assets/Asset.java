@@ -5,10 +5,7 @@ public abstract class Asset {
 
 	public abstract long getValue();
 
-	/**
-	 * 
-	 * @param name
-	 */
+
 	public Asset(String name) {
 		this.name = name;
 	}

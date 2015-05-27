@@ -11,9 +11,7 @@ public class RandomStockPriceProvider extends StockPriceProvider {
 	private Random rndGen;
 	
 	
-	/**
-	 * @param deviation standard deviation of change in stockprice in cent
-	 */
+	
 	public RandomStockPriceProvider(Share[] shares, long delay, long period, long deviation) {
 		super(shares);
 		this.deviaton = deviation;

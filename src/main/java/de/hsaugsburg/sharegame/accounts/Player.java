@@ -17,10 +17,7 @@ public class Player {
 	private SimpleAgent bot;
 	private TransactionHistory history;
 
-	/**
-	 * 
-	 * @param name
-	 */
+
 	public Player(String name, long cash) {
 		this.name = name;
 		cashAccount = new CashAccount(name + "_cash", cash);
@@ -32,12 +29,6 @@ public class Player {
 		return name;
 	}
 	
-	/**
-	 * 
-	 * @param share
-	 * @param count
-	 * @throws NotEnoughMoneyException 
-	 */
 	public void buyShare(Share share, int count) throws NotEnoughMoneyException {
 		long amount = share.getValue() * count;
 		cashAccount.remove(amount);
@@ -59,11 +50,7 @@ public class Player {
 			bot.stop();
 	}
 
-	/**
-	 * 
-	 * @param share
-	 * @param count
-	 */
+
 	public void sellShare(Share share, int count) {
 		shareDepositAccount.removeShare(share, count);
 		long amount = share.getValue() * count;

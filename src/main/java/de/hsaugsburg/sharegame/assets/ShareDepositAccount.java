@@ -48,11 +48,7 @@ public class ShareDepositAccount extends Asset {
 		return value;
 	}
 
-	/**
-	 * 
-	 * @param share
-	 * @param count
-	 */
+
 	public void addShare(Share share, int count) {
 		// suche Entsprechendes Paket im Array
 		ShareItem sa = shareItems.get(share.getName());
@@ -64,11 +60,7 @@ public class ShareDepositAccount extends Asset {
 		sa.add(count);
 	}
 
-	/**
-	 * 
-	 * @param share
-	 * @param count
-	 */
+
 	public void removeShare(Share share, int count) {
 		ShareItem sa = shareItems.get(share.getName());
 

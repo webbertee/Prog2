@@ -28,11 +28,7 @@ public class CashAccount extends Asset {
 		
 	}
 
-	/**
-	 * 
-	 * @param name
-	 * @param value
-	 */
+
 	public CashAccount(String name, long value) {
 		super(name);
 		this.value = value;

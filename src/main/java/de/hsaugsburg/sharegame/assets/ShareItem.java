@@ -21,11 +21,7 @@ public class ShareItem extends Asset {
 		return "ShareItem " + getName() + "with " + count + share.getName() + " shares.";
 	}
 
-	/**
-	 * 
-	 * @param share
-	 * @param count
-	 */
+
 
 	
 	public ShareItem(Share share, String name) {
@@ -33,10 +29,6 @@ public class ShareItem extends Asset {
 		this.share = share;
 	}
 
-	/**
-	 * 
-	 * @param count
-	 */
 	public void remove(int count) {
 		if(count == 0)
 			return;
@@ -51,10 +43,7 @@ public class ShareItem extends Asset {
 		buyValue -= count * share.getValue();
 	}
 
-	/**
-	 * 
-	 * @param count
-	 */
+
 	public void add(int count) {
 		if(count < 1)
 			throw new IllegalArgumentException("Count must be > 0");

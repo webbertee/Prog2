@@ -2,13 +2,14 @@ package de.hsaugsburg.sharegame.accounts;
 
 import java.util.Date;
 
-import de.hsaugsburg.sharegame.accounts.Transaction.Type;
 import de.hsaugsburg.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsaugsburg.sharegame.agent.SimpleAgent;
 import de.hsaugsburg.sharegame.assets.CashAccount;
 import de.hsaugsburg.sharegame.assets.Share;
 import de.hsaugsburg.sharegame.assets.ShareDepositAccount;
 import de.hsaugsburg.sharegame.shares.StockPriceProvider;
+import de.hsaugsburg.sharegame.transactions.TransactionHistory;
+import de.hsaugsburg.sharegame.transactions.Transaction.Type;
 
 public class Player {
 	private CashAccount cashAccount;

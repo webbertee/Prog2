@@ -1,4 +1,4 @@
-package de.hsaugsburg.launchers;
+package de.hsaugsburg.sharegame.launchers;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;

@@ -1,4 +1,4 @@
-package de.hsaugsburg.sharegame.accounts;
+package de.hsaugsburg.sharegame.transactions;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

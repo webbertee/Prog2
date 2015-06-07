@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.hsaugsburg.sharegame.assets.Share;
-import de.hsaugsburg.sharegame.assets.ShareDepositAccount;
-import de.hsaugsburg.sharegame.assets.exceptions.RemoveShareException;
+import de.hsa.sharegame.assets.Share;
+import de.hsa.sharegame.assets.ShareDepositAccount;
+import de.hsa.sharegame.assets.exceptions.RemoveShareException;
 
 public class ShareDepositAccountTest {
 	private ShareDepositAccount sda;

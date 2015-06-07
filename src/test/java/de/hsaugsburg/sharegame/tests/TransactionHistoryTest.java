@@ -10,8 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.hsaugsburg.sharegame.transactions.TransactionHistory;
-import de.hsaugsburg.sharegame.transactions.Transaction.Type;
+import de.hsa.sharegame.transactions.TransactionHistory;
+import de.hsa.sharegame.transactions.Transaction.Type;
 
 public class TransactionHistoryTest {
 	private TransactionHistory th;

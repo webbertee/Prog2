@@ -42,11 +42,18 @@ public class TransactionHistory {
 	}
 	
 	private void printOut(Stream<Transaction> str, Writer writer, String MIMEType) {
+		TransactionFormater formater = TransactionFormater.getFormater(MIMEType);
+		try {
+		writer.append(formater.preFormat());
 		str.forEachOrdered((Transaction t) -> {
 			try {
-				writer.append(TransactionFormater.getFormater(MIMEType).format(t));
+				writer.append(formater.format(t));
 			}catch(IOException e) {
-				System.out.println("cannot write into file");
+				e.printStackTrace();
 			}});;
+		writer.append(formater.postFormat());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

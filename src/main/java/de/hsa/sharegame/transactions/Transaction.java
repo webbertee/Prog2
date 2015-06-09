@@ -6,8 +6,6 @@ import java.util.Date;
 
 public class Transaction {
 	
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-	private static final DecimalFormat df = new DecimalFormat("#.00€");
 	
 	private final String owner;
 	public enum Type{CREDIT, DEBIT};
@@ -53,12 +51,12 @@ public class Transaction {
 	public String getOwner() {
 		return owner;
 	}
-
+	//TODO: Lokalisation
 	@Override
 	public String toString() {
 		StringBuffer str = new StringBuffer();
-		str.append(sdf.format(date) + ": ");
-		str.append(df.format(amount/100.0) + " ");
+		str.append(SimpleDateFormat.getDateInstance().format(date) + ": ");
+		str.append(DecimalFormat.getCurrencyInstance().format(amount/100.0) + " ");
 		if(type == Type.CREDIT) {
 			str.append(participant + " -> " + owner);
 		} else {

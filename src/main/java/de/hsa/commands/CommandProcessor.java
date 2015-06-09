@@ -1,11 +1,6 @@
 package de.hsa.commands;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,22 +13,18 @@ import de.hsa.commands.exceptions.CommandParseException;
 
 public class CommandProcessor {
 
-	private PrintWriter shellOut;
 	private CommandScanner commandScanner;
 	private ResourceBundle lang;
 	Map<String, CommandTypeInfo> commandTypes;
 
-	public CommandProcessor(InputStream inStream, PrintStream outStream, ResourceBundle lang,
-			Object... commandClasses) {
+	public CommandProcessor(ResourceBundle lang,Object... commandClasses) {
 		
 		this.lang = lang;
-		this.shellOut = new PrintWriter(outStream, true);
 
 		commandTypes = new HashMap<String, CommandTypeInfo>();
 		addCommandTypes(this);
 		addCommandTypes(commandClasses);
-		this.commandScanner = new CommandScanner(commandTypes,
-				new BufferedReader(new InputStreamReader(inStream)));
+		this.commandScanner = new CommandScanner(commandTypes);
 	}
 
 	@AsCommand(command = "help", feedback = "getHelpFeedback", helpText = "getHelpHelp")
@@ -66,29 +57,19 @@ public class CommandProcessor {
 		}
 	}
 
-	public void readCommand() {
+	public String readCommand(String s) {
 		CommandDescriptor cd = new CommandDescriptor();
 		try {
-			commandScanner.inputLine2CommandDescriptor(cd);
+			commandScanner.inputLine2CommandDescriptor(cd, s);
 		} catch (CommandParseException e) {
-			shellOut.print(e.getCommand() + " ");
-			printLangString(e.getHelpText());
-			return;
+			return e.getCommand() + " " + getLangString(e.getHelpText());
 			
 		} catch (IOException e) {
-			printLangString("commandIOException");
-			e.printStackTrace();
-			return;
+			return getLangString("commandIOException");
 		} catch (CommandNotFoundException e) {
-			printLangString("commandNotFound");
-			return;
+			return getLangString("commandNotFound");
 		}
-		shellOut.print(getLangString(cd.getCommandType().getFeedback()));
-		shellOut.println(cd.execute());
-	}
-	
-	public void printLangString(String key) {
-		shellOut.println(getLangString(key));
+		return getLangString(cd.getCommandType().getFeedback()) + cd.execute();
 	}
 	
 	public String getLangString(String key) {

@@ -11,6 +11,7 @@ import de.hsa.sharegame.transactions.Transaction.Type;
 
 public class HTMLFormater extends TransactionFormater {
 	StringBuffer out = new StringBuffer();
+	String newLine = System.getProperty("line.separator");
 
 	@Override
 	public String format(Transaction t) {
@@ -24,27 +25,26 @@ public class HTMLFormater extends TransactionFormater {
 		out.setLength(0);
 		out.append("<tr><td>" + date + "</td>");
 		if (t.getType() == Type.CREDIT) {
-			out.append("<td>" + participant + "</td><td<" + owner + "</td>");
+			out.append("<td>" + participant + "</td><td>" + owner + "</td>");
 		} else {
 			out.append("<td>" + owner + "</td><td>" + participant + "</td>");
 		}
 
-		out.append("<td>" + amount + "<td>");
-		out.append("<td>" + t.getCount() + "<td>");
-		out.append("<td>" + share + "<td></tr>");
-		out.append(System.getProperty("line.separator"));
-
+		out.append("<td>" + amount + "</td>");
+		out.append("<td>" + t.getCount() + "</td>");
+		out.append("<td>" + share + "</td></tr>");
+		out.append(newLine);
 		return out.toString();
 	}
 
 	@Override
 	public String preFormat() {
-		return "<table><tr><th>Date Of Transaction</th><th>Giver</th><th>Receiver/th>"
-				+ "<th>Amount Of Money</th><th>Number Of Shares</th><th>Name of Share</th></tr>";
+		return "<table><tr><th>Date Of Transaction</th><th>Giver</th><th>Receiver</th>"
+				+ "<th>Amount Of Money</th><th>Number Of Shares</th><th>Name of Share</th></tr>" + newLine;
 	}
 
 	@Override
 	public String postFormat() {
-		return "</table>";
+		return "</table>" + newLine;
 	}
 }

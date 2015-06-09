@@ -9,5 +9,4 @@ public class PlainFormater extends TransactionFormater{
 	public String format(Transaction t) {
 		return t.toString() + System.getProperty("line.separator");
 	}
-
 }

@@ -9,10 +9,10 @@ public class CommandType implements CommandTypeInfo {
 	private final Class<?>[] argTypes;
 	private final String helpText;
 	private final String feedback;
-	private final String currencyFormat;
+	private final boolean currencyFormat;
 	
 	public CommandType(String command, Object target, Method method,
-			Class<?>[] argTypes, String helpText, String feedback, String currencyFormat) {
+			Class<?>[] argTypes, String helpText, String feedback, boolean currencyFormat) {
 		this.command = command;
 		this.target = target;
 		this.method = method;
@@ -47,7 +47,7 @@ public class CommandType implements CommandTypeInfo {
 	}
 
 	@Override
-	public String getCurrencyFormat() {
+	public boolean getCurrencyFormat() {
 		return currencyFormat;
 	}
 }

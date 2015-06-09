@@ -1,11 +1,16 @@
 package de.hsa.sharegame.launchers;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Locale;
 
+import javafx.application.Application;
 import de.hsa.sharegame.accounts.AccountManager;
 import de.hsa.sharegame.accounts.AccountManagerImpl;
 import de.hsa.sharegame.assets.Share;
 import de.hsa.sharegame.commands.StockGameCommandProcessor;
+import de.hsa.sharegame.gui.StockGUI;
 import de.hsa.sharegame.shares.ConstStockPriceProvider;
 import de.hsa.sharegame.shares.HistoricalStockPriceProvider;
 import de.hsa.sharegame.shares.RandomStockPriceProvider;
@@ -19,7 +24,7 @@ public class App {
 		//
 		
 		//Interpret console arguments
-		boolean nogui = true;
+		boolean nogui = false;
 		for(String s : args) {
 			if(s.equals("nogui"))
 				nogui = true;
@@ -28,19 +33,31 @@ public class App {
 				Locale.setDefault(new Locale(s.substring("lang=".length())));
 			}
 		}
+
+		StockPriceProvider spp;
+		spp = new HistoricalStockPriceProvider(500);
+		AccountManager am = new AccountManagerImpl(spp);
 		
-		StockPriceProvider provider;
-		provider = new HistoricalStockPriceProvider(500);
-		AccountManager am = new AccountManagerImpl(provider);
-		StockGameCommandProcessor processor;
+		StockGameCommandProcessor processor = new StockGameCommandProcessor(am, spp);
 		
-		if (nogui) {
-			processor = new StockGameCommandProcessor(System.in, System.out,
-					am, provider);
-		processor.start();
-			
+		
+		if(!nogui) {
+			new Thread(() -> consoleInputLoop(processor)).start();
+			StockGUI.setUp(am, spp, processor, args);
 		} else {
-			
+			consoleInputLoop(processor);
+		}
+	}
+	
+	public static void consoleInputLoop(StockGameCommandProcessor processor) {
+		String line;
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			while((line = in.readLine()) != null) {
+				System.out.println(processor.readCommand(line));
+			} 
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

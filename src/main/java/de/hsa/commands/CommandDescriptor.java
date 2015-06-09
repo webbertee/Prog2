@@ -2,6 +2,7 @@ package de.hsa.commands;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import de.hsa.commands.exceptions.UnsopportedParameterException;
 
@@ -32,10 +33,10 @@ public class CommandDescriptor {
 		try {
 			Object result = commandType.getMethod().invoke(commandType.getTarget(), params);
 			if(result != null)  {
-				if(!commandType.getCurrencyFormat().equals("")) {
-					result = new DecimalFormat(commandType.getCurrencyFormat()).format(((Number) result).doubleValue()/100);
-				}
-				message += result;
+				if(commandType.getCurrencyFormat())
+					message += NumberFormat.getCurrencyInstance().format(((Number) result).doubleValue()/100.0);
+				else
+					message += result;
 			}
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();

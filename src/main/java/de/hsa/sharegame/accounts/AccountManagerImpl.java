@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +20,6 @@ import de.hsa.sharegame.shares.StockPriceProvider;
 public class AccountManagerImpl implements AccountManager {
 	private Map<String, Player> players;
 	private StockPriceProvider priceProvider;
-	private final String CFORMAT = "#0.00€";
 	private final Logger logger = Logger.getLogger(AccountManagerImpl.class
 			.getName());
 
@@ -42,7 +39,7 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	@AsCommand(command = "buys", helpText = "<playername> <sharename> <count> * buy a amout of shares", feedback = "shares successfully purchased")
+	@AsCommand(command = "buys", helpText = "buyShareHelp", feedback = "buyShareFeedback")
 	public void buyShare(String playerName, String shareName, int count)
 			throws NotEnoughMoneyException {
 		logger.log(Level.FINEST, "Attemting to buy " + count + " " + shareName
@@ -59,7 +56,7 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	@AsCommand(command = "sells", helpText = "<playername> <sharename> <amount> * sell a amount of shares", feedback = "Shares successfully sold")
+	@AsCommand(command = "sells", helpText = "sellShareHelp", feedback = "sellShareFeedback")
 	public void sellShare(String playerName, String shareName, int count) {
 		logger.log(Level.FINEST, "Attemting to sell " + count + " " + shareName
 				+ " shares");
@@ -75,19 +72,19 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	@AsCommand(command = "sdv", helpText = "<name> * get the value of the players share deposit", feedback = "Value of all Shares: ", currencyFormat = CFORMAT)
+	@AsCommand(command = "sdv", helpText = "<name> * get the value of the players share deposit", feedback = "Value of all Shares: ", currencyFormat = true)
 	public long getPlayerDepositValue(String name) {
 		return getPlayer(name).getDepositValue();
 	}
 
 	@Override
-	@AsCommand(command = "scv", helpText = "<name> * show players remaining cash", feedback = "Cash left: ", currencyFormat = CFORMAT)
+	@AsCommand(command = "scv", helpText = "<name> * show players remaining cash", feedback = "Cash left: ", currencyFormat = true)
 	public long getPlayerCashValue(String name) {
 		return getPlayer(name).getCashValue();
 	}
 
 	@Override
-	@AsCommand(command = "sav", helpText = "<name> * show the sum of a players assets", feedback = "Sum of players assets: ", currencyFormat = CFORMAT)
+	@AsCommand(command = "sav", helpText = "<name> * show the sum of a players assets", feedback = "Sum of players assets: ", currencyFormat = true)
 	public long getPlayerAssetValue(String name) {
 		Player p = getPlayer(name);
 		return p.getCashValue() + p.getDepositValue();
@@ -100,14 +97,14 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	@AsCommand(command = "sps", helpText = "<name> <shareName> * show value of a players collection of shares", feedback = "Value of Shares:", currencyFormat = CFORMAT)
+	@AsCommand(command = "sps", helpText = "<name> <shareName> * show value of a players collection of shares", feedback = "Value of Shares:", currencyFormat = true)
 	public long getPlayerSharesValue(String name, String shareName) {
 		return getPlayer(name)
 				.getSharesValue(priceProvider.getShare(shareName));
 	}
 
 	@Override
-	@AsCommand(command = "ssp", helpText = "<name> <shareName> * show profit made by a specific share", feedback = "Current Profit: ", currencyFormat = CFORMAT)
+	@AsCommand(command = "ssp", helpText = "<name> <shareName> * show profit made by a specific share", feedback = "Current Profit: ", currencyFormat = true)
 	public long getPlayerSharesProfit(String name, String shareName) {
 		Player p = getPlayer(name);
 		Share s = priceProvider.getShare(shareName);

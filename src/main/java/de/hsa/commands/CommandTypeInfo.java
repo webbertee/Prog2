@@ -11,5 +11,5 @@ public interface CommandTypeInfo {
 	Class<?>[] getArgTypes();
 	String getHelpText();
 	String getFeedback();
-	String getCurrencyFormat();
+	boolean getCurrencyFormat();
 }

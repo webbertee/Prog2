@@ -1,6 +1,5 @@
 package de.hsa.commands;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Map;
 
@@ -9,21 +8,18 @@ import de.hsa.commands.exceptions.CommandParseException;
 import de.hsa.commands.exceptions.UnsopportedParameterException;
 
 public class CommandScanner {
-	private BufferedReader shellIn;
 	private Map<String, CommandTypeInfo> commTypes;
 
 
-	public CommandScanner(Map<String, CommandTypeInfo> commTypes, BufferedReader shellIn) {
+	public CommandScanner(Map<String, CommandTypeInfo> commTypes) {
 		this.commTypes = commTypes;
-		this.shellIn = shellIn;
 	}
 
-	public void inputLine2CommandDescriptor(CommandDescriptor cDescriptor)
+	public void inputLine2CommandDescriptor(CommandDescriptor cDescriptor, String s)
 			throws CommandParseException, IOException, CommandNotFoundException {
 		// split command into parameters
 		String[] input;
-		
-		input = shellIn.readLine().trim().split(" ");
+		input = s.trim().split(" ");
 
 
 		cDescriptor.setCommandType(commTypes.get(input[0]));

@@ -11,10 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import de.hsa.commands.AsCommand;
-import de.hsa.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsa.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 import de.hsa.sharegame.accounts.exceptions.UnknownPlayerException;
 import de.hsa.sharegame.assets.Share;
+import de.hsa.sharegame.assets.exceptions.NotEnoughMoneyException;
 import de.hsa.sharegame.shares.StockPriceProvider;
 
 public class AccountManagerImpl implements AccountManager {

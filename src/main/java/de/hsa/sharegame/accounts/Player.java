@@ -3,11 +3,11 @@ package de.hsa.sharegame.accounts;
 import java.io.Writer;
 import java.util.Date;
 
-import de.hsa.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsa.sharegame.agent.SimpleAgent;
 import de.hsa.sharegame.assets.CashAccount;
 import de.hsa.sharegame.assets.Share;
 import de.hsa.sharegame.assets.ShareDepositAccount;
+import de.hsa.sharegame.assets.exceptions.NotEnoughMoneyException;
 import de.hsa.sharegame.shares.StockPriceProvider;
 import de.hsa.sharegame.transactions.TransactionHistory;
 import de.hsa.sharegame.transactions.Transaction.Type;

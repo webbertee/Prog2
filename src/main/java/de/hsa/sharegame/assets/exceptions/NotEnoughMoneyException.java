@@ -1,4 +1,4 @@
-package de.hsa.sharegame.accounts.exceptions;
+package de.hsa.sharegame.assets.exceptions;
 
 public class NotEnoughMoneyException extends RuntimeException {
 	

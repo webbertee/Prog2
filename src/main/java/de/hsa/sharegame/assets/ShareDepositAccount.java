@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import de.hsa.sharegame.assets.exceptions.RemoveShareException;
+import de.hsa.sharegame.assets.exceptions.NotEnoughSharesException;
 
 public class ShareDepositAccount extends Asset {
 
@@ -65,11 +65,9 @@ public class ShareDepositAccount extends Asset {
 		ShareItem sa = shareItems.get(share.getName());
 
 		if (sa == null)
-			throw new RemoveShareException("No " + share.getName()
-					+ " shares in " + this.toString());
+			throw new NotEnoughSharesException(0);
 		if (sa.getCount() < count)
-			throw new RemoveShareException("Only " + sa.getCount() + " "
-					+ share.getName() + " shares remaining");
+			throw new NotEnoughSharesException(sa.getCount());
 		
 		sa.remove(count);
 	}

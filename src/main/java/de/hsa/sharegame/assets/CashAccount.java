@@ -1,6 +1,6 @@
 package de.hsa.sharegame.assets;
 
-import de.hsa.sharegame.accounts.exceptions.NotEnoughMoneyException;
+import de.hsa.sharegame.assets.exceptions.NotEnoughMoneyException;
 
 public class CashAccount extends Asset {
 

@@ -1,7 +1,7 @@
 package de.hsa.sharegame.accounts;
 
-import de.hsa.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsa.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
+import de.hsa.sharegame.assets.exceptions.NotEnoughMoneyException;
 
 public interface AccountManager {
 

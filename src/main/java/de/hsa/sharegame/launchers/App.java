@@ -24,7 +24,7 @@ public class App {
 		//
 		
 		//Interpret console arguments
-		boolean nogui = false;
+		boolean nogui = true;
 		for(String s : args) {
 			if(s.equals("nogui"))
 				nogui = true;

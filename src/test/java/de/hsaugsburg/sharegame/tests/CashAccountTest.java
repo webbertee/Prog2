@@ -6,8 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.hsa.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsa.sharegame.assets.CashAccount;
+import de.hsa.sharegame.assets.exceptions.NotEnoughMoneyException;
 
 public class CashAccountTest {
 	private CashAccount ca;

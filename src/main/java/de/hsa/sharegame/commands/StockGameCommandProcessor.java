@@ -1,15 +1,16 @@
 package de.hsa.sharegame.commands;
 
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
 import de.hsa.commands.AsCommand;
 import de.hsa.commands.CommandProcessor;
 import de.hsa.sharegame.accounts.AccountManager;
-import de.hsa.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsa.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 import de.hsa.sharegame.accounts.exceptions.UnknownPlayerException;
-import de.hsa.sharegame.assets.exceptions.RemoveShareException;
+import de.hsa.sharegame.assets.exceptions.NotEnoughMoneyException;
+import de.hsa.sharegame.assets.exceptions.NotEnoughSharesException;
 import de.hsa.sharegame.events.ConsoleOutputEvent;
 import de.hsa.sharegame.events.ConsoleOutputHandler;
 import de.hsa.sharegame.gui.PlayerViewer;
@@ -66,27 +67,33 @@ public class StockGameCommandProcessor {
 		try {
 			output = cProcessor.readCommand(s);
 		} catch (UnknownShareException e) {
-			output = "Unknown share: " + e.getShareName();
+			output = getLangString("UnknownShareException") + e.getShareName();
 	
 		} catch (UnknownPlayerException e) {
-			output = "Player " + e.getMessage()
-					+ " does not exist.";
+			output = getLangString("UnknownPlayerException") + e.getMessage();
 	
 		} catch (NotEnoughMoneyException e) {
-			output = "Not enough money, " + e.getMissingMoney()
-					+ " missing.";
+			output = getLangString("NotEnoughMoneyException") + e.getMissingMoney();
 	
 		} catch (PlayerAlreadyExistsException e) {
-			output = "Player " + e.getMessage()
-					+ " already exists";
-		} catch (RemoveShareException e) {
-			output = e.getMessage();
+			output = getLangString("PlayerAlreadyExistsException") + e.getMessage();
+		} catch (NotEnoughSharesException e) {
+			output = getLangString("NotEnoughSharesException") + e.getRemaining();
 		} catch (UnknownMIMETypeException e) {
-			output = "Unknown MIMEType: " + e.getMessage();
+			output = getLangString("UnknownMIMETypeException") + e.getMessage();
 		}
 		
 		callConsoleOutputHandlers(new ConsoleOutputEvent(this, output));
 		return output;
 		
+	}
+	
+	public String getLangString(String key) {
+		if (lang != null) {
+			try {
+				return lang.getString(key);
+			} catch (MissingResourceException e) {}
+		}
+		return key;
 	}
 }

@@ -8,9 +8,9 @@ import org.junit.Test;
 
 import de.hsa.sharegame.accounts.AccountManager;
 import de.hsa.sharegame.accounts.AccountManagerImpl;
-import de.hsa.sharegame.accounts.exceptions.NotEnoughMoneyException;
 import de.hsa.sharegame.accounts.exceptions.PlayerAlreadyExistsException;
 import de.hsa.sharegame.assets.Share;
+import de.hsa.sharegame.assets.exceptions.NotEnoughMoneyException;
 import de.hsa.sharegame.shares.ConstStockPriceProvider;
 import de.hsa.sharegame.shares.StockPriceProvider;
 

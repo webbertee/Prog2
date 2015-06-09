@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import de.hsa.sharegame.assets.Share;
 import de.hsa.sharegame.assets.ShareDepositAccount;
-import de.hsa.sharegame.assets.exceptions.RemoveShareException;
+import de.hsa.sharegame.assets.exceptions.NotEnoughSharesException;
 
 public class ShareDepositAccountTest {
 	private ShareDepositAccount sda;
@@ -46,7 +46,7 @@ public class ShareDepositAccountTest {
 		assertEquals(sda.getSharesCount(audi), 0);
 	}
 	
-	@Test(expected=RemoveShareException.class)
+	@Test(expected=NotEnoughSharesException.class)
 	public void testRemoveShareException() {
 		sda.removeShare(audi, 1);
 

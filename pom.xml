@@ -29,7 +29,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>de.hsaugsburg.sharegame.launchers.App</mainClass>
+              <mainClass>de.hsa.sharegame.gui.App</mainClass>
             </manifest>
           </archive>
         </configuration>

@@ -1,0 +1,2 @@
+-Wenn Controller auf View zugreift, und View Auf Controller, 
+ und Controller den Zustand von View speichert, warum dann 2 verschiedene Klassen?

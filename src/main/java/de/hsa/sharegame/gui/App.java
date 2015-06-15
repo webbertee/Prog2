@@ -57,9 +57,9 @@ public class App extends Application {
     	//Only render when gui is enabled
     	if(this.getParameters().getRaw().contains("nogui"))
     		return;
-    	
- 
-        primaryStage.setScene(new MainScene(this, spp, am, processor));
+    	//TODO: PopUp-Thingy
+    	am.addPlayer("player", 100000);
+        primaryStage.setScene(new MainScene(this, "player",spp, am, processor));
         primaryStage.show();
     }
     

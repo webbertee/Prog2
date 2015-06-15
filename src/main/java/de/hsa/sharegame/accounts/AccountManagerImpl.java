@@ -45,10 +45,9 @@ public class AccountManagerImpl implements AccountManager {
 		logger.log(Level.FINEST, "Attemting to buy " + count + " " + shareName
 				+ " shares");
 		try {
-			getPlayer(playerName).buyShare(priceProvider.getShare(shareName),
-					count);
+			getPlayer(playerName).buyShare(priceProvider.getShare(shareName), count);
 		} catch (RuntimeException e) {
-			logger.log(Level.WARNING, "Buying a share failed", e);
+			logger.log(Level.INFO, "Buying a share failed");
 			throw e;
 		}
 		logger.log(Level.INFO, "Player " + playerName + " bought " + count
@@ -58,13 +57,11 @@ public class AccountManagerImpl implements AccountManager {
 	@Override
 	@AsCommand(command = "sells", helpText = "sellShareHelp", feedback = "sellShareFeedback")
 	public void sellShare(String playerName, String shareName, int count) {
-		logger.log(Level.FINEST, "Attemting to sell " + count + " " + shareName
-				+ " shares");
+		logger.log(Level.FINEST, "Attemting to sell " + count + " " + shareName + " shares");
 		try {
-			getPlayer(playerName).sellShare(priceProvider.getShare(shareName),
-					count);
+			getPlayer(playerName).sellShare(priceProvider.getShare(shareName), count);
 		} catch (RuntimeException e) {
-			logger.log(Level.WARNING, "Buying a share failed", e);
+			logger.log(Level.INFO, "Buying a share failed");
 			throw e;
 		}
 		logger.log(Level.INFO, "Player " + playerName + " sold " + count + " "
